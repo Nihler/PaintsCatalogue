@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PaintService } from '../paints.service';
 
 @Component({
   selector: 'app-paints-form',
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class PaintsFormComponent implements OnInit {
   form: FormGroup;
 
-  constructor() {}
+  constructor(private paintService: PaintService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -29,6 +30,11 @@ export class PaintsFormComponent implements OnInit {
   }
 
   onPaintSave() {
-    console.dir(this.form);
+    this.paintService.addPaint(
+      this.form.value.paintName,
+      this.form.value.manufacturer,
+      this.form.value.type,
+      this.form.value.color
+    );
   }
 }
