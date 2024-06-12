@@ -1,0 +1,22 @@
+mat-card {
+  margin: auto;
+  width: 40rem;
+  margin-top: 1rem;
+}
+
+form {
+  margin: auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 15rem;
+}
+
+button {
+  margin: auto;
+  width: 10rem;
+}

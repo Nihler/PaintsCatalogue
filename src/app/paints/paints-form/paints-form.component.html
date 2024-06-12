@@ -1,12 +1,13 @@
 <mat-card>
   <form [formGroup]="form" (submit)="onPaintSave()">
     <mat-form-field>
+      <mat-label>Wybierz producenta</mat-label>
       <mat-select formControlName="manufacturer">
         <mat-option value="Citadel Colour" selected>Citadel Colour</mat-option>
         <mat-option value="TODO">TODO</mat-option>
       </mat-select>
     </mat-form-field>
-    <br />
+
     <mat-form-field>
       <input
         matInput
@@ -16,8 +17,9 @@
         formControlName="paintName"
       />
     </mat-form-field>
-    <br />
+
     <mat-form-field>
+      <mat-label>Wybierz rodzaj</mat-label>
       <mat-select formControlName="type">
         <mat-option value="Base" selected>Base</mat-option>
         <mat-option value="Contrast">Contrast</mat-option>
@@ -27,7 +29,7 @@
         <mat-option value="Air">Air</mat-option>
       </mat-select>
     </mat-form-field>
-    <br />
+
     <mat-form-field>
       <input
         matInput
@@ -37,7 +39,7 @@
         formControlName="color"
       />
     </mat-form-field>
-    <br />
+
     <button color="accent" mat-raised-button type="submit">Add Paint</button>
   </form>
 </mat-card>
