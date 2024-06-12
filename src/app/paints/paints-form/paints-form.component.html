@@ -1,1 +1,43 @@
-<p>paints-form works!</p>
+<mat-card>
+  <form [formGroup]="form" (submit)="onPaintSave()">
+    <mat-form-field>
+      <mat-select formControlName="manufacturer">
+        <mat-option value="Citadel Colour" selected>Citadel Colour</mat-option>
+        <mat-option value="TODO">TODO</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        name="paintName"
+        placeholder="Nazwa farby"
+        formControlName="paintName"
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-select formControlName="type">
+        <mat-option value="Base" selected>Base</mat-option>
+        <mat-option value="Contrast">Contrast</mat-option>
+        <mat-option value="Layer">Layer</mat-option>
+        <mat-option value="Shade">Shade</mat-option>
+        <mat-option value="Technical">Technical</mat-option>
+        <mat-option value="Air">Air</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        name="color"
+        placeholder="Kolor"
+        formControlName="color"
+      />
+    </mat-form-field>
+    <br />
+    <button color="accent" mat-raised-button type="submit">Add Paint</button>
+  </form>
+</mat-card>
