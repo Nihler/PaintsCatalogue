@@ -17,7 +17,23 @@ exports.addPaint = (req, res, next) => {
 };
 
 exports.getAllPaints = (req, res, next) => {
-  res.status(201).json({
-    message: "getAllPaints",
-  });
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const paintQuery = Paint.find();
+  let fetchedPaints;
+  if (pageSize && currentPage) {
+    paintQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+  }
+  paintQuery
+    .then((docs) => {
+      fetchedPaints = docs;
+      return Paint.countDocuments();
+    })
+    .then((count) => {
+      res.status(200).json({
+        message: "Paints fetched succesfully!",
+        paints: fetchedPaints,
+        maxArticles: count,
+      });
+    });
 };
