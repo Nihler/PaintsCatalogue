@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AngularMaterialModule } from '../angular-material.module';
 
@@ -15,6 +16,8 @@ import { PaintsListComponent } from './paints-list/paints-list.component';
     ReactiveFormsModule,
     AngularMaterialModule,
     RouterModule,
+    FormsModule,
+    AsyncPipe,
   ],
 })
 export class PaintsModule {}
