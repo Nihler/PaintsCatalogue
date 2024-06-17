@@ -23,9 +23,6 @@ export class PaintsFormComponent implements OnInit {
       type: new FormControl(null, {
         validators: [Validators.required],
       }),
-      color: new FormControl(null, {
-        validators: [Validators.required],
-      }),
     });
   }
 
@@ -33,8 +30,7 @@ export class PaintsFormComponent implements OnInit {
     this.paintService.addPaint(
       this.form.value.paintName,
       this.form.value.manufacturer,
-      this.form.value.type,
-      this.form.value.color
+      this.form.value.type
     );
   }
 }

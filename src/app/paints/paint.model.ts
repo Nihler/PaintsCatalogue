@@ -3,6 +3,4 @@ export interface Paint {
   name: string;
   manufacturer: string;
   type: string;
-  color: string;
-  status: string;
 }

@@ -21,7 +21,7 @@ export class PaintService {
     return this.paintsUpdated.asObservable();
   }
 
-  addPaint(name: string, manufacturer: string, type: string, color: string) {
+  addPaint(name: string, manufacturer: string, type: string) {
     // const paintData = new FormData();
     // paintData.append('name', name);
     // paintData.append('manufacturer', manufacturer);
@@ -33,8 +33,6 @@ export class PaintService {
       name: name,
       manufacturer: manufacturer,
       type: type,
-      color: color,
-      status: 'new',
     };
     this.http
       .post<{ message: string }>(BACKEND_URL, paintData)
