@@ -10,11 +10,17 @@
       [matAutocomplete]="auto"
     />
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option
+      <!-- <mat-option
         *ngFor="let option of filteredOptions | async"
         [value]="option"
         >{{ option }}</mat-option
-      >
+      > -->
     </mat-autocomplete>
   </mat-form-field>
+  <h2>Base</h2>
+  <ul>
+    <li *ngFor="let paint of filteredOptions | async">
+      {{ paint.name }} | {{ paint.type }}
+    </li>
+  </ul>
 </form>

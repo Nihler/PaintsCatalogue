@@ -11,19 +11,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class PaintsListComponent implements OnInit {
   paintsSub: Subscription;
-  paints: string[] = [];
-  filteredOptions: Observable<string[]>;
+  paints: Paint[] = [];
+  filteredOptions: Observable<Paint[]>;
 
   form: FormGroup;
   paintName: FormControl;
 
   constructor(private paintService: PaintService) {}
 
-  private _filter(value: string): string[] {
+  private _filter(value: string, array: Paint[]): Paint[] {
     const filterValue = value.toLowerCase();
 
-    return this.paints.filter((option) =>
-      option.toLowerCase().includes(filterValue)
+    return array.filter((paint) =>
+      paint.name.toLowerCase().includes(filterValue)
     );
   }
 
@@ -37,13 +37,14 @@ export class PaintsListComponent implements OnInit {
       .getPaintsUpdateListener()
       .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {
         resData.paints.forEach((element) => {
-          this.paints.push(element.name);
+          this.paints.push(element);
         });
         console.log(this.paints);
         this.filteredOptions = this.paintName.valueChanges.pipe(
           startWith(''),
-          map((value) => this._filter(value || ''))
+          map((value) => this._filter(value || '', this.paints))
         );
+        console.log(this.filteredOptions);
         //resData.paints;
         //console.log(this.paints);
       });
