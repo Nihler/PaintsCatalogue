@@ -17,10 +17,12 @@
       > -->
     </mat-autocomplete>
   </mat-form-field>
-  <h2>Base</h2>
-  <ul>
-    <li *ngFor="let paint of filteredOptions | async">
-      {{ paint.name }} | {{ paint.type }}
-    </li>
-  </ul>
+  <div class="type-lists">
+    <ul *ngFor="let type of paintTypes">
+      <h2>{{ type }}</h2>
+      <div *ngFor="let paint of filteredOptions | async">
+        <li *ngIf="paint.type === type">{{ paint.name }}</li>
+      </div>
+    </ul>
+  </div>
 </form>

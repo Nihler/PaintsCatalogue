@@ -13,6 +13,7 @@ export class PaintsListComponent implements OnInit {
   paintsSub: Subscription;
   paints: Paint[] = [];
   filteredOptions: Observable<Paint[]>;
+  paintTypes = ['Base', 'Layer', 'Shade', 'Contrast'];
 
   form: FormGroup;
   paintName: FormControl;
@@ -32,7 +33,7 @@ export class PaintsListComponent implements OnInit {
     this.paintName = new FormControl(null, {
       validators: [Validators.required, Validators.minLength(3)],
     });
-    this.paintService.getAllPaints(10, 1);
+    this.paintService.getAllPaints(100, 1);
     this.paintsSub = this.paintService
       .getPaintsUpdateListener()
       .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {
