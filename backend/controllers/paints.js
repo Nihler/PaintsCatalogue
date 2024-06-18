@@ -44,8 +44,6 @@ exports.addPaintToInventory = (req, res, next) => {
   Paint.findById(paintId)
     .then((paintEl) => {
       User.findById(userId).then((userEl) => {
-        console.log(userEl.inventory);
-        console.log(paintEl);
         userEl.inventory.push(paintEl);
         userEl.save().then(() => {
           res.status(200).json({
