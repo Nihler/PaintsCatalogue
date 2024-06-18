@@ -21,7 +21,10 @@
     <ul *ngFor="let type of paintTypes">
       <h2>{{ type }}</h2>
       <div *ngFor="let paint of filteredOptions | async">
-        <li *ngIf="paint.type === type">{{ paint.name }}</li>
+        <li *ngIf="paint.type === type">
+          {{ paint.name }}
+          <button (click)="addToInventory(paint)">+</button>
+        </li>
       </div>
     </ul>
   </div>

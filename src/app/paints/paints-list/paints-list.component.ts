@@ -50,4 +50,9 @@ export class PaintsListComponent implements OnInit {
         //console.log(this.paints);
       });
   }
+
+  addToInventory(paint: Paint) {
+    console.log(paint);
+    this.paintService.addPaintToInventory(paint.id);
+  }
 }

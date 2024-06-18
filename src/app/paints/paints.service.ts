@@ -86,4 +86,12 @@ export class PaintService {
 
     // return [...this.posts];
   }
+
+  addPaintToInventory(paintId: String) {
+    this.http
+      .post(BACKEND_URL + '/addToEq', { paintId: paintId })
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
 }

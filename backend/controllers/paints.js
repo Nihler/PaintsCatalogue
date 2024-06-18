@@ -1,4 +1,6 @@
+const paint = require("../models/paint");
 const Paint = require("../models/paint");
+const User = require("../models/user");
 
 exports.addPaint = (req, res, next) => {
   console.log(req.body);
@@ -33,5 +35,26 @@ exports.getAllPaints = (req, res, next) => {
         paints: fetchedPaints,
         maxArticles: count,
       });
+    });
+};
+
+exports.addPaintToInventory = (req, res, next) => {
+  const userId = req.userData.userId;
+  const paintId = req.body.paintId;
+  Paint.findById(paintId)
+    .then((paintEl) => {
+      User.findById(userId).then((userEl) => {
+        console.log(userEl.inventory);
+        console.log(paintEl);
+        userEl.inventory.push(paintEl);
+        userEl.save().then(() => {
+          res.status(200).json({
+            message: "Ok",
+          });
+        });
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
