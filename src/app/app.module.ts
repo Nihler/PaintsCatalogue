@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,8 @@ import { HeaderComponent } from './header/header.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { PaintsModule } from './paints/paints.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthModule } from './auth/auth.module';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -20,8 +22,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularMaterialModule,
     PaintsModule,
     BrowserAnimationsModule,
+    AuthModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

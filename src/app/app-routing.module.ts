@@ -9,6 +9,10 @@ const routes: Routes = [
     component: PaintsListComponent,
   },
   { path: 'addPaint', component: PaintsFormComponent },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({

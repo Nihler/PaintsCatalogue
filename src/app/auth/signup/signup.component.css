@@ -1,0 +1,30 @@
+mat-card {
+  width: 50rem;
+  margin: auto;
+}
+
+h1 {
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+mat-form-field,
+input {
+  width: 40rem;
+}
+
+button {
+  width: 10rem;
+  margin: auto;
+}
+
+mat-spinner {
+  margin: auto;
+}
