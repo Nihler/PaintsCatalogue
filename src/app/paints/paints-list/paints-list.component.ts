@@ -3,6 +3,7 @@ import { PaintService } from '../paints.service';
 import { Observable, Subscription, map, startWith } from 'rxjs';
 import { Paint } from '../paint.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-paints-list',
@@ -15,10 +16,16 @@ export class PaintsListComponent implements OnInit {
   filteredOptions: Observable<Paint[]>;
   paintTypes = ['Base', 'Layer', 'Shade', 'Contrast'];
 
+  private authListenerSubs: Subscription;
+  isLoggedIn = false;
+
   form: FormGroup;
   paintName: FormControl;
 
-  constructor(private paintService: PaintService) {}
+  constructor(
+    private paintService: PaintService,
+    private authService: AuthService
+  ) {}
 
   private _filter(value: string, array: Paint[]): Paint[] {
     const filterValue = value.toLowerCase();
@@ -48,6 +55,13 @@ export class PaintsListComponent implements OnInit {
         console.log(this.filteredOptions);
         //resData.paints;
         //console.log(this.paints);
+      });
+
+    this.isLoggedIn = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.isLoggedIn = isAuthenticated;
       });
   }
 
