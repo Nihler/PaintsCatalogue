@@ -44,12 +44,25 @@ exports.addPaintToInventory = (req, res, next) => {
   Paint.findById(paintId)
     .then((paintEl) => {
       User.findById(userId).then((userEl) => {
-        userEl.inventory.push(paintEl);
-        userEl.save().then(() => {
-          res.status(200).json({
-            message: "Ok",
+        //check if paint is already in user inventory. based on that either add or remove
+        const index = userEl.inventory.find((paint) =>
+          paint._id.equals(paintEl._id)
+        );
+        if (index) {
+          userEl.inventory.pull(paintEl);
+          userEl.save().then(() => {
+            res.status(200).json({
+              message: "Paint Removed",
+            });
           });
-        });
+        } else {
+          userEl.inventory.push(paintEl);
+          userEl.save().then(() => {
+            res.status(200).json({
+              message: "Paint Added",
+            });
+          });
+        }
       });
     })
     .catch((err) => {
