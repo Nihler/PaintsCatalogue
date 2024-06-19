@@ -69,3 +69,18 @@ exports.addPaintToInventory = (req, res, next) => {
       console.log(err);
     });
 };
+
+exports.getUserPaints = (req, res, next) => {
+  User.findById(req.userData.userId)
+    .then((userEl) => {
+      res.status(200).json({
+        message: "Paints fetched succesfully",
+        inventory: userEl.inventory,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        message: err,
+      });
+    });
+};

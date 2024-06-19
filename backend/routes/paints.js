@@ -11,4 +11,6 @@ router.get("", PaintsController.getAllPaints);
 
 router.post("/addToEq", checkAuth, PaintsController.addPaintToInventory);
 
+router.post("/getEq", checkAuth, PaintsController.getUserPaints);
+
 module.exports = router;
