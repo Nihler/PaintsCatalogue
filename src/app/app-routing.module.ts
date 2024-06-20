@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PaintsListComponent } from './paints/paints-list/paints-list.component';
 import { PaintsFormComponent } from './paints/paints-form/paints-form.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { InventoryComponent } from './user/inventory/inventory.component';
 
 const routes: Routes = [
   {
@@ -13,6 +15,8 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
+  { path: 'user', component: ProfileComponent },
+  { path: 'user/inventory/:userId', component: InventoryComponent },
 ];
 
 @NgModule({

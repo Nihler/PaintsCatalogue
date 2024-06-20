@@ -12,9 +12,16 @@ import { PaintsModule } from './paints/paints.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { ProfileComponent } from './user/profile/profile.component';
+import { InventoryComponent } from './user/inventory/inventory.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    ProfileComponent,
+    InventoryComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
