@@ -8,6 +8,7 @@ exports.createUser = (req, res, next) => {
     const user = new User({
       email: req.body.email,
       password: hash,
+      username: req.body.username,
     });
     user
       .save()
@@ -30,28 +31,23 @@ exports.login = (req, res, next) => {
 
   User.findOne({ email: req.body.email })
     .then((user) => {
-      console.log("USER: " + user);
       if (!user) {
-        console.log("RETURNING 401");
         throw new Error("User not found");
-        // return res.status(401).json({
-        //   message: "Auth failed",
-        // });
       }
-      // console.log("I SHOULD NOT BE HERE");
       fetchedUser = user;
       return bcrypt.compare(req.body.password, user.password);
     })
     .then((result) => {
-      // console.log("I SHOULD NOT BE HERE EITHER");
       if (!result) {
         return res.status(401).json({
           message: "Auth failed",
         });
       }
-
       const token = jwt.sign(
-        { email: fetchedUser.email, userId: fetchedUser._id },
+        {
+          email: fetchedUser.email,
+          userId: fetchedUser._id,
+        },
         process.env.JWT_KEY,
         {
           expiresIn: "1h",
@@ -61,6 +57,7 @@ exports.login = (req, res, next) => {
         token: token,
         userId: fetchedUser._id,
         expiresIn: 3600,
+        username: fetchedUser.username,
       });
     })
     .catch((err) => {
