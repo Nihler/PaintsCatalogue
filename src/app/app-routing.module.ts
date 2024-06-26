@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   { path: 'user', component: ProfileComponent },
-  { path: 'user/inventory/:userId', component: InventoryComponent },
+  { path: 'user/inventory/:userId', component: PaintsListComponent },
 ];
 
 @NgModule({

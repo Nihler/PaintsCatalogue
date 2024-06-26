@@ -4,6 +4,7 @@ import { Observable, Subscription, map, startWith } from 'rxjs';
 import { Paint } from '../paint.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-paints-list',
@@ -15,6 +16,8 @@ export class PaintsListComponent implements OnInit {
   paints: Paint[] = [];
   filteredOptions: Observable<Paint[]>;
   paintTypes = ['Base', 'Layer', 'Shade', 'Contrast'];
+  mode = 'list';
+  private userId = '';
 
   private authListenerSubs: Subscription;
   isLoggedIn = false;
@@ -24,7 +27,8 @@ export class PaintsListComponent implements OnInit {
 
   constructor(
     private paintService: PaintService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) {}
 
   private _filter(value: string, array: Paint[]): Paint[] {
@@ -40,7 +44,17 @@ export class PaintsListComponent implements OnInit {
     this.paintName = new FormControl(null, {
       validators: [Validators.required, Validators.minLength(3)],
     });
-    this.paintService.getAllPaints(100, 1);
+
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('userId')) {
+        this.mode = 'inventory';
+        this.userId = paramMap.get('userId');
+        this.paintService.getUserPaints(this.userId);
+      } else {
+        this.paintService.getAllPaints();
+      }
+    });
+
     this.paintsSub = this.paintService
       .getPaintsUpdateListener()
       .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {

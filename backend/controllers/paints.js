@@ -17,13 +17,8 @@ exports.addPaint = (req, res, next) => {
 };
 
 exports.getAllPaints = (req, res, next) => {
-  const pageSize = +req.query.pagesize;
-  const currentPage = +req.query.page;
   const paintQuery = Paint.find();
   let fetchedPaints;
-  if (pageSize && currentPage) {
-    paintQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-  }
   paintQuery
     .then((docs) => {
       fetchedPaints = docs;
@@ -34,6 +29,23 @@ exports.getAllPaints = (req, res, next) => {
         message: "Paints fetched succesfully!",
         paints: fetchedPaints,
         maxArticles: count,
+      });
+    });
+};
+
+exports.getUserPaints = (req, res, next) => {
+  let userId = req.params.userId;
+  User.findOne({ username: userId })
+    .then((userEl) => {
+      res.status(200).json({
+        message: "Paints fetched succesfully",
+        paints: userEl.inventory,
+        userId: userId,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        message: err,
       });
     });
 };
@@ -67,20 +79,5 @@ exports.addPaintToInventory = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-    });
-};
-
-exports.getUserPaints = (req, res, next) => {
-  User.findById(req.userData.userId)
-    .then((userEl) => {
-      res.status(200).json({
-        message: "Paints fetched succesfully",
-        inventory: userEl.inventory,
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({
-        message: err,
-      });
     });
 };

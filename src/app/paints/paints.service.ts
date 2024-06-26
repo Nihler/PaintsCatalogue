@@ -42,11 +42,58 @@ export class PaintService {
       });
   }
 
-  getAllPaints(postPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${postPerPage}&page=${currentPage}`;
+  getAllPaints() {
+    this.http
+      .get<{ message: string; paints: any; maxArticles: number }>(BACKEND_URL)
+      .pipe(
+        map((resData) => {
+          console.log(resData);
+          return {
+            paints: resData.paints.map(
+              (paint: {
+                _id: string;
+                name: string;
+                manufacturer: string;
+                type: string;
+                color: string;
+                status: string;
+              }) => {
+                return {
+                  id: paint._id,
+                  name: paint.name,
+                  manufacturer: paint.manufacturer,
+                  type: paint.type,
+                  color: paint.color,
+                  status: paint.status,
+                };
+              }
+            ),
+            maxPaints: resData.maxArticles,
+          };
+        })
+      )
+      .subscribe((transformedResData) => {
+        this.paints = transformedResData.paints;
+        this.paintsUpdated.next({
+          paints: [...this.paints],
+          paintsCount: transformedResData.maxPaints,
+        });
+      });
+  }
+
+  addPaintToInventory(paintId: String) {
+    this.http
+      .post(BACKEND_URL + '/addToEq', { paintId: paintId })
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  getUserPaints(username: String) {
+    console.log(username);
     this.http
       .get<{ message: string; paints: any; maxArticles: number }>(
-        BACKEND_URL + queryParams
+        BACKEND_URL + 'getEq/' + username
       )
       .pipe(
         map((resData) => {
@@ -76,22 +123,12 @@ export class PaintService {
         })
       )
       .subscribe((transformedResData) => {
-        // console.log(transformedPostData);
+        console.log(transformedResData.paints);
         this.paints = transformedResData.paints;
         this.paintsUpdated.next({
           paints: [...this.paints],
           paintsCount: transformedResData.maxPaints,
         });
-      });
-
-    // return [...this.posts];
-  }
-
-  addPaintToInventory(paintId: String) {
-    this.http
-      .post(BACKEND_URL + '/addToEq', { paintId: paintId })
-      .subscribe((res) => {
-        console.log(res);
       });
   }
 }

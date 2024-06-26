@@ -1,6 +1,9 @@
 <p>profile works!</p>
 <button>
-  <a mat-button routerLink="/user/inventory/1" routerLinkActive="mat-accent"
+  <a
+    mat-button
+    [routerLink]="['/user', 'inventory', userId]"
+    routerLinkActive="mat-accent"
     >Inventory</a
   >
 </button>

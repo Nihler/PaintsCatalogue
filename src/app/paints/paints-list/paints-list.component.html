@@ -23,7 +23,12 @@
       <div *ngFor="let paint of filteredOptions | async">
         <li *ngIf="paint.type === type">
           {{ paint.name }}
-          <button *ngIf="isLoggedIn" (click)="addToInventory(paint)">+</button>
+          <button
+            *ngIf="isLoggedIn && mode != 'inventory'"
+            (click)="addToInventory(paint)"
+          >
+            +
+          </button>
         </li>
       </div>
     </ul>
