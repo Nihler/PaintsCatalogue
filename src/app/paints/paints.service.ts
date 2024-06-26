@@ -47,7 +47,6 @@ export class PaintService {
       .get<{ message: string; paints: any; maxArticles: number }>(BACKEND_URL)
       .pipe(
         map((resData) => {
-          console.log(resData);
           return {
             paints: resData.paints.map(
               (paint: {
