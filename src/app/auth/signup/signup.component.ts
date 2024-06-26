@@ -28,15 +28,15 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onSignup(loginForm: NgForm) {
-    console.log(loginForm);
     if (loginForm.invalid) {
       return;
     }
     this.isLoading = true;
+
     this.authService.createUser(
       loginForm.value.email,
       loginForm.value.password,
-      loginForm.value.usermame
+      loginForm.value.username
     );
   }
 }
