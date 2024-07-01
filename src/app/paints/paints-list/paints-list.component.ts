@@ -61,12 +61,10 @@ export class PaintsListComponent implements OnInit {
         resData.paints.forEach((element) => {
           this.paints.push(element);
         });
-        console.log(this.paints);
         this.filteredOptions = this.paintName.valueChanges.pipe(
           startWith(''),
           map((value) => this._filter(value || '', this.paints))
         );
-        console.log(this.filteredOptions);
         //resData.paints;
         //console.log(this.paints);
       });
