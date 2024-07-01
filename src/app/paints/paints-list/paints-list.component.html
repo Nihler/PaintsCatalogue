@@ -1,36 +1,41 @@
-<form>
-  <mat-form-field>
+<form *ngIf="!isLoading">
+  <mat-form-field class="filterInput">
     <mat-label>Nazwa farby</mat-label>
     <input
       matInput
       type="text"
       name="paintName"
       placeholder="Nazwa farby"
-      [formControl]="paintName"
-      [matAutocomplete]="auto"
+      [formControl]="paintNameInput"
     />
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <!-- <mat-option
-        *ngFor="let option of filteredOptions | async"
-        [value]="option"
-        >{{ option }}</mat-option
-      > -->
-    </mat-autocomplete>
   </mat-form-field>
   <div class="type-lists">
-    <ul *ngFor="let type of paintTypes">
+    <div class="list" *ngFor="let type of paintTypes">
       <h2>{{ type }}</h2>
-      <div *ngFor="let paint of filteredOptions | async">
-        <li *ngIf="paint.type === type">
-          {{ paint.name }}
-          <button
-            *ngIf="isLoggedIn && mode != 'inventory'"
-            (click)="addToInventory(paint)"
-          >
-            +
-          </button>
-        </li>
-      </div>
-    </ul>
+      <ul>
+        <br />
+        <div *ngFor="let paint of filteredOptions$ | async" class="paintDiv">
+          <li *ngIf="paint.type === type && paint.name != ''">
+            <span>
+              {{ paint.name }}
+            </span>
+            <div>
+              <button
+                *ngIf="isLoggedIn && mode != 'inventory'"
+                (click)="addToInventory(paint)"
+              >
+                <ion-icon class="icon" name="bookmark-outline"></ion-icon>
+              </button>
+              <button
+                *ngIf="isLoggedIn && mode != 'inventory'"
+                (click)="addToInventory(paint)"
+              >
+                <ion-icon class="icon" name="add-circle-outline"></ion-icon>
+              </button>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
   </div>
 </form>

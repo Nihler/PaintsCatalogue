@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  userId = '';
+  userId: string;
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {

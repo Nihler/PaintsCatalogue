@@ -1,32 +1,36 @@
-<div>
+<div class="header">
   <ul>
-    <li>
-      <a mat-button routerLink="/">My Paints</a>
-    </li>
-    <li>
-      <a mat-button routerLink="/addPaint" routerLinkActive="mat-accent">
-        Add new paint
-      </a>
-    </li>
-    <li>
-      <a mat-button routerLink="/user" routerLinkActive="mat-accent">
-        Profile
-      </a>
-    </li>
-    <li *ngIf="!isLoggedIn">
-      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
-        >Login</a
-      >
-    </li>
-    <li *ngIf="!isLoggedIn">
-      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
-        >Signup</a
-      >
-    </li>
-    <li *ngIf="isLoggedIn">
-      <button mat-button routerLinkActive="mat-accent" (click)="onLogout()">
-        Logout
-      </button>
-    </li>
+    <div>
+      <li>
+        <a mat-button routerLink="/">Paint Catalogue</a>
+      </li>
+      <li>
+        <a mat-button routerLink="/addPaint" routerLinkActive="mat-accent">
+          Add new paint
+        </a>
+      </li>
+      <li>
+        <a mat-button routerLink="/user" routerLinkActive="mat-accent">
+          Profile
+        </a>
+      </li>
+    </div>
+    <div>
+      <li *ngIf="!isLoggedIn">
+        <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
+          >Login</a
+        >
+      </li>
+      <li *ngIf="!isLoggedIn">
+        <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
+          >Signup</a
+        >
+      </li>
+      <li *ngIf="isLoggedIn">
+        <button mat-button routerLinkActive="mat-accent" (click)="onLogout()">
+          Logout
+        </button>
+      </li>
+    </div>
   </ul>
 </div>

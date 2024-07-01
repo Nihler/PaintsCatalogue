@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
@@ -19,5 +19,6 @@ import { PaintsListComponent } from './paints-list/paints-list.component';
     FormsModule,
     AsyncPipe,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PaintsModule {}

@@ -1,5 +1,16 @@
+form {
+  margin: 0 auto;
+}
+
 .type-lists {
   display: flex;
+  flex-direction: column;
+}
+
+ul {
+  display: flex;
+  max-width: 110rem;
+  flex-wrap: wrap;
 }
 
 li {
@@ -7,4 +18,41 @@ li {
   display: flex;
   justify-content: space-between;
   gap: 3rem;
+}
+
+.paintDiv {
+  background-color: red;
+  border-radius: 11px;
+  width: 24rem;
+  padding: 0.8rem;
+  margin-top: 0.4rem;
+  margin-right: 0.4rem;
+}
+.paintDiv li span {
+  font-size: 1.6rem;
+  justify-self: center;
+}
+
+.paintDiv:empty {
+  display: none;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+button:hover {
+  background-color: blue;
+}
+
+.icon {
+  height: 2rem;
+  width: 2rem;
+  color: black;
+}
+
+.filterInput {
+  min-width: 20rem;
+  margin: auto;
 }

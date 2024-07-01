@@ -12,18 +12,21 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./paints-list.component.css'],
 })
 export class PaintsListComponent implements OnInit {
-  paintsSub: Subscription;
-  paints: Paint[] = [];
-  filteredOptions: Observable<Paint[]>;
-  paintTypes = ['Base', 'Layer', 'Shade', 'Contrast'];
-  mode = 'list';
+  private authListenerSubs: Subscription;
   private userId = '';
 
-  private authListenerSubs: Subscription;
+  paintsSub: Subscription;
+  filteredOptions$: Observable<Paint[]>;
+
+  paints: Paint[] = [];
+  paintTypes = ['Base', 'Layer', 'Shade', 'Contrast'];
+
+  mode = 'list';
+  isLoading = true;
   isLoggedIn = false;
 
   form: FormGroup;
-  paintName: FormControl;
+  paintNameInput: FormControl;
 
   constructor(
     private paintService: PaintService,
@@ -41,7 +44,7 @@ export class PaintsListComponent implements OnInit {
 
   ngOnInit(): void {
     //this.form = new FormGroup({});
-    this.paintName = new FormControl(null, {
+    this.paintNameInput = new FormControl(null, {
       validators: [Validators.required, Validators.minLength(3)],
     });
 
@@ -58,17 +61,18 @@ export class PaintsListComponent implements OnInit {
     this.paintsSub = this.paintService
       .getPaintsUpdateListener()
       .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {
-        resData.paints.forEach((element) => {
-          this.paints.push(element);
-        });
-        this.filteredOptions = this.paintName.valueChanges.pipe(
+        console.log(resData.paints);
+        // console.log(this.paints);
+        this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
           startWith(''),
-          map((value) => this._filter(value || '', this.paints))
+          map((value) => this._filter(value || '', resData.paints))
         );
+        console.log(this.filteredOptions$);
         //resData.paints;
         //console.log(this.paints);
       });
 
+    this.isLoading = false;
     this.isLoggedIn = this.authService.getIsAuth();
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
