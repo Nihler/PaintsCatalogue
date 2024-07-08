@@ -9,8 +9,11 @@ form {
 
 ul {
   display: flex;
-  max-width: 110rem;
+  max-width: 100%;
   flex-wrap: wrap;
+  margin: auto;
+  margin-bottom: 3.2rem;
+  align-content: flex-start;
 }
 
 li {
@@ -18,19 +21,24 @@ li {
   display: flex;
   justify-content: space-between;
   gap: 3rem;
+  align-content: center;
 }
 
 .paintDiv {
-  background-color: red;
-  border-radius: 11px;
+  background-color: rgba(174, 195, 176, 0.2);
+  border-radius: 9px;
   width: 24rem;
   padding: 0.8rem;
-  margin-top: 0.4rem;
-  margin-right: 0.4rem;
+  margin-right: 1.2rem;
+  margin-bottom: 1.2rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
+
 .paintDiv li span {
   font-size: 1.6rem;
   justify-self: center;
+  color: #01161e;
+  padding: 0.6rem;
 }
 
 .paintDiv:empty {
@@ -42,14 +50,19 @@ button {
   border: none;
 }
 
-button:hover {
+button:active {
   background-color: blue;
 }
 
+.icon-group {
+  display: flex;
+  justify-content: center;
+}
 .icon {
   height: 2rem;
   width: 2rem;
   color: black;
+  justify-self: center;
 }
 
 .filterInput {

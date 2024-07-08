@@ -9,10 +9,32 @@ ul {
 ul div {
   display: flex;
   margin-right: 1rem;
+  margin-top: 1rem;
+  gap: 2rem;
 }
 
 .header {
-  background-color: red;
+  background-color: #01161e;
   width: 100%;
-  padding: 1rem;
+  height: 7rem;
+  padding: 1rem 5rem;
+}
+
+a:link,
+a:visited {
+  color: #eff6e0;
+  font-size: 2rem;
+}
+
+a:hover {
+  color: #aec3b0;
+}
+
+li button {
+  color: #eff6e0;
+  font-size: 2rem;
+}
+
+li button:hover {
+  color: #aec3b0;
 }

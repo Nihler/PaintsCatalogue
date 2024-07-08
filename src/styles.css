@@ -23,14 +23,14 @@ Large: 1.8
 
 --- 02 COLORS
 
-- Primary: 
-- Tints:
+- Primary: #01161e #eff6e0
+- Tints: #124559 #598392 
 
 
 - Shades: 
 
 
-- Accents:
+- Accents: #aec3b0
 - Greys
 
 #888
@@ -53,6 +53,12 @@ Medium: 11px
 - Spacing system (px)
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
 */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 html {
   /* font-size: 10px; */
@@ -78,7 +84,6 @@ body {
 
 .container {
   /* 1140px */
-  max-width: 114rem;
   padding: 0 3.2rem;
   margin: 0 auto;
 }
