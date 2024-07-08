@@ -71,7 +71,7 @@ export class AuthService {
   }
 
   getUserName() {
-    return this.username;
+    return localStorage.getItem('username');
   }
 
   private setAuthTimer(duration: number) {

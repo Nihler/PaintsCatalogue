@@ -14,11 +14,16 @@ const BACKEND_URL = envionment.apiUrl + 'paint/';
 export class PaintService {
   private paints: Paint[] = [];
   private paintsUpdated = new Subject<any>();
+  private userPaintsUpdated = new Subject<any>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getPaintsUpdateListener() {
     return this.paintsUpdated.asObservable();
+  }
+
+  getUserPaintsUpdateListener() {
+    return this.userPaintsUpdated.asObservable();
   }
 
   addPaint(name: string, manufacturer: string, type: string) {
@@ -124,7 +129,7 @@ export class PaintService {
       .subscribe((transformedResData) => {
         console.log(transformedResData.paints);
         this.paints = transformedResData.paints;
-        this.paintsUpdated.next({
+        this.userPaintsUpdated.next({
           paints: [...this.paints],
           paintsCount: transformedResData.maxPaints,
         });
