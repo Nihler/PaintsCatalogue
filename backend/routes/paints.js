@@ -13,4 +13,6 @@ router.post("/addToEq", checkAuth, PaintsController.addPaintToUser);
 
 router.get("/getEq/:userId", PaintsController.getUserPaints);
 
+router.get("/getWishlist/:userId", PaintsController.getUserWishlist);
+
 module.exports = router;

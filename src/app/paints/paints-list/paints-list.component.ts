@@ -4,7 +4,7 @@ import { Observable, Subscription, map, startWith } from 'rxjs';
 import { Paint } from '../paint.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/auth.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-paints-list',
@@ -20,6 +20,7 @@ export class PaintsListComponent implements OnInit, OnDestroy {
 
   paints: Paint[] = [];
   userPaints: Paint[] = [];
+  wishlistPaints: Paint[] = [];
   paintTypes = ['Base', 'Layer', 'Shade', 'Contrast'];
 
   mode = 'list';
@@ -32,7 +33,8 @@ export class PaintsListComponent implements OnInit, OnDestroy {
   constructor(
     private paintService: PaintService,
     private authService: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   private _filter(value: string, array: Paint[]): Paint[] {
@@ -51,9 +53,10 @@ export class PaintsListComponent implements OnInit, OnDestroy {
 
     //populate table of all paints depending on mode
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      //getusername if it is in url
+      //get username if it is in url
       if (paramMap.has('userId')) {
-        this.mode = 'inventory';
+        this.mode = this.route.snapshot.url[1].toString();
+        console.log(this.mode);
         this.userId = paramMap.get('userId');
       }
       //if its user inventory then get their paints only
@@ -67,8 +70,20 @@ export class PaintsListComponent implements OnInit, OnDestroy {
               map((value) => this._filter(value || '', resData.paints))
             );
           });
-        // if its common list, get all paints
-      } else {
+        //if its wishlist get only wishlist paints
+      } else if (this.mode === 'wishlist') {
+        this.paintService.getUserWishlist(this.userId);
+        this.paintsSub = this.paintService
+          .getWishlistUpdateListener()
+          .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {
+            this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
+              startWith(''),
+              map((value) => this._filter(value || '', resData.paints))
+            );
+          });
+      }
+      // if its common list, get all paints
+      else {
         this.paintService.getAllPaints();
         this.paintsSub = this.paintService
           .getPaintsUpdateListener()
@@ -84,10 +99,18 @@ export class PaintsListComponent implements OnInit, OnDestroy {
     this.isLoggedIn = this.authService.getIsAuth();
 
     //get logged user paints for comparing to all list
-    if (this.isLoggedIn && this.mode != 'inventory') {
+    if (
+      this.isLoggedIn &&
+      this.mode != 'inventory' &&
+      this.mode != 'wishlist'
+    ) {
       this.paintService.getUserPaints(this.authService.getUserName());
       this.paintService.getUserPaintsUpdateListener().subscribe((result) => {
         this.userPaints = result.paints;
+      });
+      this.paintService.getUserWishlist(this.authService.getUserName());
+      this.paintService.getWishlistUpdateListener().subscribe((result) => {
+        this.wishlistPaints = result.paints;
       });
     }
 
@@ -105,8 +128,6 @@ export class PaintsListComponent implements OnInit, OnDestroy {
     this.paintsSub.unsubscribe();
   }
 
-  async getPaints() {}
-
   addToInventory(paint: Paint) {
     this.paintService.addPaintToInventory(paint.id);
     if (this.userPaints.some((e) => e.id === paint.id)) {
@@ -119,10 +140,10 @@ export class PaintsListComponent implements OnInit, OnDestroy {
   addToWishlist(paint: Paint, event: EventTarget) {
     console.log(event);
     this.paintService.addPaintToWishlist(paint.id);
-    if (this.userPaints.some((e) => e.id === paint.id)) {
-      this.userPaints.splice(this.userPaints.indexOf(paint), 1);
+    if (this.wishlistPaints.some((e) => e.id === paint.id)) {
+      this.wishlistPaints.splice(this.wishlistPaints.indexOf(paint), 1);
     } else {
-      this.userPaints.push(paint);
+      this.wishlistPaints.push(paint);
     }
   }
 
@@ -142,8 +163,14 @@ export class PaintsListComponent implements OnInit, OnDestroy {
     button.name = button.name + '-outline';
   }
 
-  isIncluded(paint: Paint) {
+  isIncludedInInventory(paint: Paint) {
     if (this.userPaints.some((e) => e.id === paint.id)) {
+      return true;
+    } else return false;
+  }
+
+  isIncludedInWishlist(paint: Paint) {
+    if (this.wishlistPaints.some((e) => e.id === paint.id)) {
       return true;
     } else return false;
   }

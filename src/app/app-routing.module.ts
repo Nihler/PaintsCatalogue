@@ -18,6 +18,7 @@ const routes: Routes = [
   },
   { path: 'user', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'user/inventory/:userId', component: PaintsListComponent },
+  { path: 'user/wishlist/:userId', component: PaintsListComponent },
 ];
 
 @NgModule({

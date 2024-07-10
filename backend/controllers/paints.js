@@ -50,6 +50,23 @@ exports.getUserPaints = (req, res, next) => {
     });
 };
 
+exports.getUserWishlist = (req, res, next) => {
+  let userId = req.params.userId;
+  User.findOne({ username: userId })
+    .then((userEl) => {
+      res.status(200).json({
+        message: "Wishlist fetched succesfully",
+        paints: userEl.wishlist,
+        userId: userId,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        message: err,
+      });
+    });
+};
+
 exports.addPaintToUser = (req, res, next) => {
   const userId = req.userData.userId;
   const paintId = req.body.paintId;

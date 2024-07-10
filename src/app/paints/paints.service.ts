@@ -13,8 +13,11 @@ const BACKEND_URL = envionment.apiUrl + 'paint/';
 @Injectable({ providedIn: 'root' })
 export class PaintService {
   private paints: Paint[] = [];
+  private userPaints: Paint[] = [];
+  private wishlistPaints: Paint[] = [];
   private paintsUpdated = new Subject<any>();
   private userPaintsUpdated = new Subject<any>();
+  private userWishlistUpdated = new Subject<any>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -26,6 +29,11 @@ export class PaintService {
     return this.userPaintsUpdated.asObservable();
   }
 
+  getWishlistUpdateListener() {
+    return this.userWishlistUpdated.asObservable();
+  }
+
+  //add Paint to database, probably will be removed
   addPaint(name: string, manufacturer: string, type: string) {
     // const paintData = new FormData();
     // paintData.append('name', name);
@@ -47,6 +55,23 @@ export class PaintService {
       });
   }
 
+  addPaintToInventory(paintId: String) {
+    this.http
+      .post(BACKEND_URL + '/addToEq', { paintId: paintId, mode: 'inventory' })
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  addPaintToWishlist(paintId: String) {
+    this.http
+      .post(BACKEND_URL + '/addToEq', { paintId: paintId, mode: 'wishlist' })
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  //get a list of all Paints in db
   getAllPaints() {
     this.http
       .get<{ message: string; paints: any; maxArticles: number }>(BACKEND_URL)
@@ -85,24 +110,7 @@ export class PaintService {
       });
   }
 
-  addPaintToInventory(paintId: String) {
-    this.http
-      .post(BACKEND_URL + '/addToEq', { paintId: paintId, mode: 'inventory' })
-      .subscribe((res) => {
-        console.log(res);
-      });
-  }
-
-  addPaintToWishlist(paintId: String) {
-    this.http
-      .post(BACKEND_URL + '/addToEq', { paintId: paintId, mode: 'wishlist' })
-      .subscribe((res) => {
-        console.log(res);
-      });
-  }
-
   getUserPaints(username: String) {
-    console.log(username);
     this.http
       .get<{ message: string; paints: any; maxArticles: number }>(
         BACKEND_URL + 'getEq/' + username
@@ -136,9 +144,51 @@ export class PaintService {
       )
       .subscribe((transformedResData) => {
         console.log(transformedResData.paints);
-        this.paints = transformedResData.paints;
+        this.userPaints = transformedResData.paints;
         this.userPaintsUpdated.next({
-          paints: [...this.paints],
+          paints: [...this.userPaints],
+          paintsCount: transformedResData.maxPaints,
+        });
+      });
+  }
+
+  getUserWishlist(username: String) {
+    this.http
+      .get<{ message: string; paints: any; maxArticles: number }>(
+        BACKEND_URL + 'getWishlist/' + username
+      )
+      .pipe(
+        map((resData) => {
+          console.log(resData);
+          return {
+            paints: resData.paints.map(
+              (paint: {
+                _id: string;
+                name: string;
+                manufacturer: string;
+                type: string;
+                color: string;
+                status: string;
+              }) => {
+                return {
+                  id: paint._id,
+                  name: paint.name,
+                  manufacturer: paint.manufacturer,
+                  type: paint.type,
+                  color: paint.color,
+                  status: paint.status,
+                };
+              }
+            ),
+            maxPaints: resData.maxArticles,
+          };
+        })
+      )
+      .subscribe((transformedResData) => {
+        console.log(transformedResData.paints);
+        this.wishlistPaints = transformedResData.paints;
+        this.userWishlistUpdated.next({
+          paints: [...this.wishlistPaints],
           paintsCount: transformedResData.maxPaints,
         });
       });

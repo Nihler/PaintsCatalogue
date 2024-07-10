@@ -21,8 +21,11 @@
             {{ paint.name }}
           </span>
           <div class="icon-group">
+            <!-- Wishlist icons -->
             <ion-icon
-              *ngIf="isLoggedIn && mode != 'inventory'"
+              *ngIf="
+                isLoggedIn && mode === 'list' && !isIncludedInWishlist(paint)
+              "
               (click)="addToWishlist(paint, $event.target)"
               class="icon"
               name="bookmark-outline"
@@ -31,7 +34,21 @@
             ></ion-icon>
 
             <ion-icon
-              *ngIf="isLoggedIn && mode != 'inventory' && isIncluded(paint)"
+              *ngIf="
+                isLoggedIn && mode === 'list' && isIncludedInWishlist(paint)
+              "
+              (click)="addToWishlist(paint, $event.target)"
+              class="icon"
+              name="bookmarks-outline"
+              (mouseenter)="addBookmarkEnter($event.target)"
+              (mouseleave)="mouseLeave($event.target)"
+            ></ion-icon>
+
+            <!-- Inventory icons -->
+            <ion-icon
+              *ngIf="
+                isLoggedIn && mode === 'list' && isIncludedInInventory(paint)
+              "
               (click)="addToInventory(paint)"
               class="icon"
               name="remove-circle-outline"
@@ -40,7 +57,9 @@
             ></ion-icon>
 
             <ion-icon
-              *ngIf="isLoggedIn && mode != 'inventory' && !isIncluded(paint)"
+              *ngIf="
+                isLoggedIn && mode === 'list' && !isIncludedInInventory(paint)
+              "
               (click)="addToInventory(paint)"
               class="icon"
               name="add-circle-outline"
