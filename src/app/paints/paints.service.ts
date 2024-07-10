@@ -51,24 +51,19 @@ export class PaintService {
       .post<{ message: string }>(BACKEND_URL, paintData)
       .subscribe((resData) => {
         // this.router.navigate(['/']);
-        console.log(resData);
       });
   }
 
   addPaintToInventory(paintId: String) {
     this.http
       .post(BACKEND_URL + '/addToEq', { paintId: paintId, mode: 'inventory' })
-      .subscribe((res) => {
-        console.log(res);
-      });
+      .subscribe((res) => {});
   }
 
   addPaintToWishlist(paintId: String) {
     this.http
       .post(BACKEND_URL + '/addToEq', { paintId: paintId, mode: 'wishlist' })
-      .subscribe((res) => {
-        console.log(res);
-      });
+      .subscribe((res) => {});
   }
 
   //get a list of all Paints in db
@@ -117,7 +112,6 @@ export class PaintService {
       )
       .pipe(
         map((resData) => {
-          console.log(resData);
           return {
             paints: resData.paints.map(
               (paint: {
@@ -143,7 +137,6 @@ export class PaintService {
         })
       )
       .subscribe((transformedResData) => {
-        console.log(transformedResData.paints);
         this.userPaints = transformedResData.paints;
         this.userPaintsUpdated.next({
           paints: [...this.userPaints],
@@ -159,7 +152,6 @@ export class PaintService {
       )
       .pipe(
         map((resData) => {
-          console.log(resData);
           return {
             paints: resData.paints.map(
               (paint: {
@@ -185,7 +177,6 @@ export class PaintService {
         })
       )
       .subscribe((transformedResData) => {
-        console.log(transformedResData.paints);
         this.wishlistPaints = transformedResData.paints;
         this.userWishlistUpdated.next({
           paints: [...this.wishlistPaints],

@@ -56,7 +56,6 @@ export class PaintsListComponent implements OnInit, OnDestroy {
       //get username if it is in url
       if (paramMap.has('userId')) {
         this.mode = this.route.snapshot.url[1].toString();
-        console.log(this.mode);
         this.userId = paramMap.get('userId');
       }
       //if its user inventory then get their paints only
@@ -130,18 +129,22 @@ export class PaintsListComponent implements OnInit, OnDestroy {
 
   addToInventory(paint: Paint) {
     this.paintService.addPaintToInventory(paint.id);
-    if (this.userPaints.some((e) => e.id === paint.id)) {
-      this.userPaints.splice(this.userPaints.indexOf(paint), 1);
+    const index = this.userPaints.map((p) => p.id).indexOf(paint.id);
+
+    if (index >= 0) {
+      this.userPaints.splice(index, 1);
     } else {
       this.userPaints.push(paint);
     }
   }
 
   addToWishlist(paint: Paint, event: EventTarget) {
-    console.log(event);
     this.paintService.addPaintToWishlist(paint.id);
-    if (this.wishlistPaints.some((e) => e.id === paint.id)) {
-      this.wishlistPaints.splice(this.wishlistPaints.indexOf(paint), 1);
+    let index;
+
+    index = this.wishlistPaints.map((p) => p.id).indexOf(paint.id);
+    if (index >= 0) {
+      this.wishlistPaints.splice(index, 1);
     } else {
       this.wishlistPaints.push(paint);
     }

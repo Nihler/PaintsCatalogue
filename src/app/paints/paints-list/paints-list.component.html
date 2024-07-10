@@ -35,7 +35,10 @@
 
             <ion-icon
               *ngIf="
-                isLoggedIn && mode === 'list' && isIncludedInWishlist(paint)
+                (isLoggedIn &&
+                  mode === 'list' &&
+                  isIncludedInWishlist(paint)) ||
+                mode === 'wishlist'
               "
               (click)="addToWishlist(paint, $event.target)"
               class="icon"
