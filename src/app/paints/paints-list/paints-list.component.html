@@ -23,6 +23,7 @@
           <div class="icon-group">
             <ion-icon
               *ngIf="isLoggedIn && mode != 'inventory'"
+              (click)="addToWishlist(paint, $event.target)"
               class="icon"
               name="bookmark-outline"
               (mouseenter)="addBookmarkEnter($event.target)"

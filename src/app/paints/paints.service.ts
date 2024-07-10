@@ -87,7 +87,15 @@ export class PaintService {
 
   addPaintToInventory(paintId: String) {
     this.http
-      .post(BACKEND_URL + '/addToEq', { paintId: paintId })
+      .post(BACKEND_URL + '/addToEq', { paintId: paintId, mode: 'inventory' })
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  addPaintToWishlist(paintId: String) {
+    this.http
+      .post(BACKEND_URL + '/addToEq', { paintId: paintId, mode: 'wishlist' })
       .subscribe((res) => {
         console.log(res);
       });

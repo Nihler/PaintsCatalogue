@@ -50,28 +50,36 @@ exports.getUserPaints = (req, res, next) => {
     });
 };
 
-exports.addPaintToInventory = (req, res, next) => {
+exports.addPaintToUser = (req, res, next) => {
   const userId = req.userData.userId;
   const paintId = req.body.paintId;
+  const mode = req.body.mode;
+  let inventoryQuery;
+
   Paint.findById(paintId)
     .then((paintEl) => {
       User.findById(userId).then((userEl) => {
+        if (mode === undefined || mode === "wishlist") {
+          inventoryQuery = userEl.wishlist;
+        } else {
+          inventoryQuery = userEl.inventory;
+        }
         //check if paint is already in user inventory. based on that either add or remove
-        const index = userEl.inventory.find((paint) =>
+        const index = inventoryQuery.find((paint) =>
           paint._id.equals(paintEl._id)
         );
         if (index) {
-          userEl.inventory.pull(paintEl);
+          inventoryQuery.pull(paintEl);
           userEl.save().then(() => {
             res.status(200).json({
-              message: "Paint Removed",
+              message: "Paint Removed from " + mode,
             });
           });
         } else {
-          userEl.inventory.push(paintEl);
+          inventoryQuery.push(paintEl);
           userEl.save().then(() => {
             res.status(200).json({
-              message: "Paint Added",
+              message: "Paint Added to " + mode,
             });
           });
         }

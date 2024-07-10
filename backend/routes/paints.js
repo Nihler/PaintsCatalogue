@@ -9,7 +9,7 @@ router.post("", PaintsController.addPaint);
 
 router.get("", PaintsController.getAllPaints);
 
-router.post("/addToEq", checkAuth, PaintsController.addPaintToInventory);
+router.post("/addToEq", checkAuth, PaintsController.addPaintToUser);
 
 router.get("/getEq/:userId", PaintsController.getUserPaints);
 

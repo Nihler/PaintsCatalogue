@@ -116,6 +116,16 @@ export class PaintsListComponent implements OnInit, OnDestroy {
     }
   }
 
+  addToWishlist(paint: Paint, event: EventTarget) {
+    console.log(event);
+    this.paintService.addPaintToWishlist(paint.id);
+    if (this.userPaints.some((e) => e.id === paint.id)) {
+      this.userPaints.splice(this.userPaints.indexOf(paint), 1);
+    } else {
+      this.userPaints.push(paint);
+    }
+  }
+
   addBookmarkEnter(button: any) {
     const newName = button.name.split('-', 1).join('-');
     button.name = newName;

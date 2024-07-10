@@ -9,6 +9,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   registrationDate: { type: Date, default: Date.now },
   inventory: [],
+  wishlist: [],
 });
 
 userSchema.plugin(uniqueValidator);
