@@ -26,7 +26,7 @@
               *ngIf="
                 isLoggedIn && mode === 'list' && !isIncludedInWishlist(paint)
               "
-              (click)="addToWishlist(paint, $event.target)"
+              (click)="addToWishlist(paint)"
               class="icon"
               name="bookmark-outline"
               (mouseenter)="addBookmarkEnter($event.target)"
@@ -40,7 +40,7 @@
                   isIncludedInWishlist(paint)) ||
                 mode === 'wishlist'
               "
-              (click)="addToWishlist(paint, $event.target)"
+              (click)="addToWishlist(paint)"
               class="icon"
               name="bookmarks-outline"
               (mouseenter)="addBookmarkEnter($event.target)"
@@ -61,7 +61,10 @@
 
             <ion-icon
               *ngIf="
-                isLoggedIn && mode === 'list' && !isIncludedInInventory(paint)
+                (isLoggedIn &&
+                  mode === 'list' &&
+                  !isIncludedInInventory(paint)) ||
+                mode === 'wishlist'
               "
               (click)="addToInventory(paint)"
               class="icon"

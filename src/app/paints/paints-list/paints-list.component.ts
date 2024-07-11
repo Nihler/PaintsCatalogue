@@ -64,9 +64,10 @@ export class PaintsListComponent implements OnInit, OnDestroy {
         this.paintsSub = this.paintService
           .getUserPaintsUpdateListener()
           .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {
+            this.paints = resData.paints;
             this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
               startWith(''),
-              map((value) => this._filter(value || '', resData.paints))
+              map((value) => this._filter(value || '', this.paints))
             );
           });
         //if its wishlist get only wishlist paints
@@ -75,9 +76,10 @@ export class PaintsListComponent implements OnInit, OnDestroy {
         this.paintsSub = this.paintService
           .getWishlistUpdateListener()
           .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {
+            this.wishlistPaints = resData.paints;
             this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
               startWith(''),
-              map((value) => this._filter(value || '', resData.paints))
+              map((value) => this._filter(value || '', this.wishlistPaints))
             );
           });
       }
@@ -136,15 +138,31 @@ export class PaintsListComponent implements OnInit, OnDestroy {
     } else {
       this.userPaints.push(paint);
     }
+
+    if (this.mode === 'wishlist') {
+      this.addToWishlist(paint);
+    }
   }
 
-  addToWishlist(paint: Paint, event: EventTarget) {
+  addToWishlist(paint: Paint) {
+    console.log(this.filteredOptions$);
     this.paintService.addPaintToWishlist(paint.id);
-    let index;
-
+    let index: number;
+    let tempSub;
     index = this.wishlistPaints.map((p) => p.id).indexOf(paint.id);
     if (index >= 0) {
       this.wishlistPaints.splice(index, 1);
+      if (this.mode === 'wishlist') {
+        tempSub = this.filteredOptions$.subscribe((value) => {
+          value.splice(index, 1);
+        });
+        this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
+          startWith(''),
+          map((input) => this._filter(input || '', this.wishlistPaints))
+        );
+        this.paintNameInput.setValue('');
+        tempSub.unsubscribe();
+      }
     } else {
       this.wishlistPaints.push(paint);
     }
