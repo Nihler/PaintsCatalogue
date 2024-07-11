@@ -35,10 +35,9 @@
 
             <ion-icon
               *ngIf="
-                (isLoggedIn &&
-                  mode === 'list' &&
-                  isIncludedInWishlist(paint)) ||
-                mode === 'wishlist'
+                isLoggedIn &&
+                ((mode === 'list' && isIncludedInWishlist(paint)) ||
+                  mode === 'wishlist')
               "
               (click)="addToWishlist(paint)"
               class="icon"
@@ -50,9 +49,9 @@
             <!-- Inventory icons -->
             <ion-icon
               *ngIf="
-                (isLoggedIn &&
-                  mode === 'list' && isIncludedInInventory(paint)) ||
-                mode === 'inventory'
+                isLoggedIn &&
+                ((mode === 'list' && isIncludedInInventory(paint)) ||
+                  mode === 'inventory')
               "
               (click)="addToInventory(paint)"
               class="icon"
@@ -63,10 +62,9 @@
 
             <ion-icon
               *ngIf="
-                (isLoggedIn &&
-                  mode === 'list' &&
-                  !isIncludedInInventory(paint)) ||
-                mode === 'wishlist'
+                isLoggedIn &&
+                ((mode === 'list' && !isIncludedInInventory(paint)) ||
+                  mode === 'wishlist')
               "
               (click)="addToInventory(paint)"
               class="icon"

@@ -47,6 +47,8 @@ export class PaintsListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //setup searchbar
+    //check if user is logged in
+
     this.paintNameInput = new FormControl(null, {
       validators: [Validators.required, Validators.minLength(3)],
     });
@@ -63,28 +65,47 @@ export class PaintsListComponent implements OnInit, OnDestroy {
         this.paintService.getUserPaints(this.userId);
         this.paintsSub = this.paintService
           .getUserPaintsUpdateListener()
-          .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {
-            this.userPaints = resData.paints;
-            this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
-              startWith(''),
-              map((value) => this._filter(value || '', this.userPaints))
-            );
-          });
+          .subscribe(
+            (resData: {
+              paints: Paint[];
+              paintsCount: number;
+              owner: string;
+            }) => {
+              this.isLoggedIn = resData.owner === this.authService.getUserId();
+
+              this.userPaints = resData.paints;
+              this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
+                startWith(''),
+                map((value) => this._filter(value || '', this.userPaints))
+              );
+            }
+          );
         //if its wishlist get only wishlist paints
       } else if (this.mode === 'wishlist') {
         this.paintService.getUserWishlist(this.userId);
         this.paintsSub = this.paintService
           .getWishlistUpdateListener()
-          .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {
-            this.wishlistPaints = resData.paints;
-            this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
-              startWith(''),
-              map((value) => this._filter(value || '', this.wishlistPaints))
-            );
-          });
+          .subscribe(
+            (resData: {
+              paints: Paint[];
+              paintsCount: number;
+              owner: string;
+            }) => {
+              //TODO:
+              //There might be a possibility for one user to move paints from other user wishlist to their inventory. Not sure if it is still possible but needs to be checked. Now UI will not allow this action
+              this.isLoggedIn = resData.owner === this.authService.getUserId();
+
+              this.wishlistPaints = resData.paints;
+              this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
+                startWith(''),
+                map((value) => this._filter(value || '', this.wishlistPaints))
+              );
+            }
+          );
       }
       // if its common list, get all paints
       else {
+        this.isLoggedIn = this.authService.getIsAuth();
         this.paintService.getAllPaints();
         this.paintsSub = this.paintService
           .getPaintsUpdateListener()
@@ -96,8 +117,6 @@ export class PaintsListComponent implements OnInit, OnDestroy {
           });
       }
     });
-    //check if user is logged in
-    this.isLoggedIn = this.authService.getIsAuth();
 
     //get logged user paints for comparing to all list
     if (

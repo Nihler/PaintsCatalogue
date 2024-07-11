@@ -57,7 +57,9 @@ export class PaintService {
   addPaintToInventory(paintId: String) {
     this.http
       .post(BACKEND_URL + '/addToEq', { paintId: paintId, mode: 'inventory' })
-      .subscribe((res) => {});
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 
   addPaintToWishlist(paintId: String) {
@@ -69,7 +71,11 @@ export class PaintService {
   //get a list of all Paints in db
   getAllPaints() {
     this.http
-      .get<{ message: string; paints: any; maxArticles: number }>(BACKEND_URL)
+      .get<{
+        message: string;
+        paints: any;
+        maxArticles: number;
+      }>(BACKEND_URL)
       .pipe(
         map((resData) => {
           return {
@@ -107,9 +113,11 @@ export class PaintService {
 
   getUserPaints(username: String) {
     this.http
-      .get<{ message: string; paints: any; maxArticles: number }>(
-        BACKEND_URL + 'getEq/' + username
-      )
+      .get<{
+        message: string;
+        paints: any;
+        id: string;
+      }>(BACKEND_URL + 'getEq/' + username)
       .pipe(
         map((resData) => {
           return {
@@ -132,7 +140,7 @@ export class PaintService {
                 };
               }
             ),
-            maxPaints: resData.maxArticles,
+            userId: resData.id,
           };
         })
       )
@@ -140,14 +148,14 @@ export class PaintService {
         this.userPaints = transformedResData.paints;
         this.userPaintsUpdated.next({
           paints: [...this.userPaints],
-          paintsCount: transformedResData.maxPaints,
+          owner: transformedResData.userId,
         });
       });
   }
 
   getUserWishlist(username: String) {
     this.http
-      .get<{ message: string; paints: any; maxArticles: number }>(
+      .get<{ message: string; paints: any; maxArticles: number; id: string }>(
         BACKEND_URL + 'getWishlist/' + username
       )
       .pipe(
@@ -173,6 +181,7 @@ export class PaintService {
               }
             ),
             maxPaints: resData.maxArticles,
+            userId: resData.id,
           };
         })
       )
@@ -181,6 +190,7 @@ export class PaintService {
         this.userWishlistUpdated.next({
           paints: [...this.wishlistPaints],
           paintsCount: transformedResData.maxPaints,
+          owner: transformedResData.userId,
         });
       });
   }

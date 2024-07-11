@@ -40,7 +40,7 @@ exports.getUserPaints = (req, res, next) => {
       res.status(200).json({
         message: "Paints fetched succesfully",
         paints: userEl.inventory,
-        userId: userId,
+        id: userEl._id,
       });
     })
     .catch((err) => {
@@ -57,7 +57,7 @@ exports.getUserWishlist = (req, res, next) => {
       res.status(200).json({
         message: "Wishlist fetched succesfully",
         paints: userEl.wishlist,
-        userId: userId,
+        id: userEl._id,
       });
     })
     .catch((err) => {
@@ -71,29 +71,27 @@ exports.addPaintToUser = (req, res, next) => {
   const userId = req.userData.userId;
   const paintId = req.body.paintId;
   const mode = req.body.mode;
-  let inventoryQuery;
+  let query;
 
   Paint.findById(paintId)
     .then((paintEl) => {
       User.findById(userId).then((userEl) => {
         if (mode === undefined || mode === "wishlist") {
-          inventoryQuery = userEl.wishlist;
+          query = userEl.wishlist;
         } else {
-          inventoryQuery = userEl.inventory;
+          query = userEl.inventory;
         }
         //check if paint is already in user inventory. based on that either add or remove
-        const index = inventoryQuery.find((paint) =>
-          paint._id.equals(paintEl._id)
-        );
+        const index = query.find((paint) => paint._id.equals(paintEl._id));
         if (index) {
-          inventoryQuery.pull(paintEl);
+          query.pull(paintEl);
           userEl.save().then(() => {
             res.status(200).json({
               message: "Paint Removed from " + mode,
             });
           });
         } else {
-          inventoryQuery.push(paintEl);
+          query.push(paintEl);
           userEl.save().then(() => {
             res.status(200).json({
               message: "Paint Added to " + mode,
