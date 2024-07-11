@@ -50,7 +50,9 @@
             <!-- Inventory icons -->
             <ion-icon
               *ngIf="
-                isLoggedIn && mode === 'list' && isIncludedInInventory(paint)
+                (isLoggedIn &&
+                  mode === 'list' && isIncludedInInventory(paint)) ||
+                mode === 'inventory'
               "
               (click)="addToInventory(paint)"
               class="icon"

@@ -64,10 +64,10 @@ export class PaintsListComponent implements OnInit, OnDestroy {
         this.paintsSub = this.paintService
           .getUserPaintsUpdateListener()
           .subscribe((resData: { paints: Paint[]; paintsCount: number }) => {
-            this.paints = resData.paints;
+            this.userPaints = resData.paints;
             this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
               startWith(''),
-              map((value) => this._filter(value || '', this.paints))
+              map((value) => this._filter(value || '', this.userPaints))
             );
           });
         //if its wishlist get only wishlist paints
@@ -132,9 +132,22 @@ export class PaintsListComponent implements OnInit, OnDestroy {
   addToInventory(paint: Paint) {
     this.paintService.addPaintToInventory(paint.id);
     const index = this.userPaints.map((p) => p.id).indexOf(paint.id);
+    let tempSub;
 
     if (index >= 0) {
       this.userPaints.splice(index, 1);
+
+      if (this.mode === 'inventory') {
+        tempSub = this.filteredOptions$.subscribe((value) => {
+          value.splice(index, 1);
+        });
+        this.filteredOptions$ = this.paintNameInput.valueChanges.pipe(
+          startWith(''),
+          map((input) => this._filter(input || '', this.userPaints))
+        );
+        this.paintNameInput.setValue('');
+        tempSub.unsubscribe();
+      }
     } else {
       this.userPaints.push(paint);
     }
@@ -145,7 +158,6 @@ export class PaintsListComponent implements OnInit, OnDestroy {
   }
 
   addToWishlist(paint: Paint) {
-    console.log(this.filteredOptions$);
     this.paintService.addPaintToWishlist(paint.id);
     let index: number;
     let tempSub;
