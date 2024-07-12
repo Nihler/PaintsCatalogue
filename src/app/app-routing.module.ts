@@ -16,9 +16,10 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: 'user', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'user/inventory/:userId', component: PaintsListComponent },
-  { path: 'user/wishlist/:userId', component: PaintsListComponent },
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+  },
 ];
 
 @NgModule({

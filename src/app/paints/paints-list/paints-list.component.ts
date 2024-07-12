@@ -57,7 +57,7 @@ export class PaintsListComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       //get username if it is in url
       if (paramMap.has('userId')) {
-        this.mode = this.route.snapshot.url[1].toString();
+        this.mode = this.route.snapshot.url[0].toString();
         this.userId = paramMap.get('userId');
       }
       //if its user inventory then get their paints only

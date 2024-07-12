@@ -2,16 +2,16 @@
 <button>
   <a
     mat-button
-    [routerLink]="['/user', 'inventory', userId]"
+    [routerLink]="['inventory', userId]"
     routerLinkActive="mat-accent"
     >Inventory</a
   >
 </button>
-<button>
-  <a
-    mat-button
-    [routerLink]="['/user', 'wishlist', userId]"
-    routerLinkActive="mat-accent"
-    >Wishlist</a
-  >
+<button
+  mat-button
+  [routerLink]="['wishlist', userId]"
+  routerLinkActive="mat-accent"
+>
+  Wishlist
 </button>
+<router-outlet></router-outlet>

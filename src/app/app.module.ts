@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ProfileComponent } from './user/profile/profile.component';
 import { InventoryComponent } from './user/inventory/inventory.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { InventoryComponent } from './user/inventory/inventory.component';
     HttpClientModule,
     AngularMaterialModule,
     PaintsModule,
+    UserModule,
     BrowserAnimationsModule,
     AuthModule,
   ],
