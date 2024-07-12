@@ -1,17 +1,30 @@
 <p>profile works!</p>
-<button>
-  <a
-    mat-button
-    [routerLink]="['inventory', userId]"
-    routerLinkActive="mat-accent"
-    >Inventory</a
-  >
-</button>
-<button
-  mat-button
-  [routerLink]="['wishlist', userId]"
-  routerLinkActive="mat-accent"
->
-  Wishlist
-</button>
-<router-outlet></router-outlet>
+<div class="grid-col-12">
+  <div class="profile-content">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="profile-navigation">
+    <button
+      mat-button
+      [routerLink]="[userId]"
+      routerLinkActive="mat-accent"
+      routerLinkActive="active"
+    >
+      Your information
+    </button>
+    <button
+      mat-button
+      [routerLink]="['inventory', userId]"
+      routerLinkActive="mat-accent"
+    >
+      Inventory
+    </button>
+    <button
+      mat-button
+      [routerLink]="['wishlist', userId]"
+      routerLinkActive="mat-accent"
+    >
+      Wishlist
+    </button>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.grid-col-12 {
+  display: grid;
+  grid-template-columns: 9fr 3fr;
+}
+
+.profile-navigation {
+  display: flex;
+  flex-direction: column;
+}

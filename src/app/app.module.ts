@@ -17,12 +17,7 @@ import { InventoryComponent } from './user/inventory/inventory.component';
 import { UserModule } from './user/user.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    ProfileComponent,
-    InventoryComponent,
-  ],
+  declarations: [AppComponent, HeaderComponent, InventoryComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
