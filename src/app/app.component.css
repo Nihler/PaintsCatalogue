@@ -1,5 +1,6 @@
 .container {
   margin: 3.2rem auto 3.2rem;
   max-width: 140rem;
+  min-height: 1000px;
   /* background-color: #333; */
 }

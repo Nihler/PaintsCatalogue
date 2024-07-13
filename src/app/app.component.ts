@@ -10,6 +10,8 @@ import { CommonService } from './common.service';
 export class AppComponent implements OnInit {
   title = 'PaintsCatalogue';
   sidenavStatus: boolean = false;
+  isLoggedIn = false;
+  username: string;
   @ViewChild('drawer') sidenav: any;
 
   constructor(
@@ -24,5 +26,13 @@ export class AppComponent implements OnInit {
       this.sidenavStatus = res;
       this.sidenav.toggle();
     });
+    this.isLoggedIn = this.authService.getIsAuth();
+    if (this.isLoggedIn) {
+      this.username = this.authService.getUserName();
+    }
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }
