@@ -38,3 +38,9 @@ li button {
 li button:hover {
   color: #aec3b0;
 }
+
+.icon {
+  width: 60px;
+  height: 60px;
+  color: white;
+}

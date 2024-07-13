@@ -1,6 +1,14 @@
-<app-header></app-header>
-<div class="container">
-  <div class="row">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<mat-sidenav-container>
+  <mat-sidenav #drawer>
+    <p>Test</p>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-header></app-header>
+    <div class="container">
+      <div class="row">
+        <button>TEST</button>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

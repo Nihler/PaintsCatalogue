@@ -1,14 +1,20 @@
 <div class="header">
-  <ul>
+  <ion-icon
+    *ngIf="smallScreen"
+    class="icon"
+    name="menu-outline"
+    (click)="toggleSidenav()"
+  ></ion-icon>
+  <ul *ngIf="!smallScreen">
     <div>
       <li>
         <a mat-button routerLink="/">Paint Catalogue</a>
       </li>
-      <li>
+      <!-- <li>
         <a mat-button routerLink="/addPaint" routerLinkActive="mat-accent">
           Add new paint
         </a>
-      </li>
+      </li> -->
       <li>
         <a
           mat-button
@@ -17,6 +23,19 @@
         >
           Profile
         </a>
+      </li>
+      <li>
+        <!-- <form>
+          <mat-form-field class="filterInput">
+            <mat-label>Search users</mat-label>
+            <input
+              matInput
+              type="text"
+              name="username"
+              placeholder="Joe Doe..."
+            />
+          </mat-form-field>
+        </form> -->
       </li>
     </div>
     <div>

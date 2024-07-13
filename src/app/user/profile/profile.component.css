@@ -1,6 +1,6 @@
 .grid-col-12 {
   display: grid;
-  grid-template-columns: 9fr 3fr;
+  grid-template-columns: 10fr 2fr;
 }
 
 .profile-navigation {

@@ -11,6 +11,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   exports: [
@@ -25,6 +27,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatSelectModule,
     MatAutocompleteModule,
     MatFormFieldModule,
+    LayoutModule,
+    MatSidenavModule,
   ],
 })
 export class AngularMaterialModule {}
