@@ -16,25 +16,32 @@ ul {
   align-content: flex-start;
 }
 
-li {
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.paint-flex {
   list-style: none;
   display: flex;
   justify-content: space-between;
-  gap: 3rem;
-  align-content: center;
+  gap: 2rem;
+  line-height: 3rem;
+  vertical-align: middle;
 }
 
 .paintDiv {
   background-color: rgba(174, 195, 176, 0.2);
   border-radius: 9px;
-  width: 24rem;
+  width: 32rem;
+  height: 6rem;
   padding: 0.8rem;
   margin-right: 1.2rem;
   margin-bottom: 1.2rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.paintDiv li span {
+.paintDiv span {
   font-size: 1.6rem;
   justify-self: center;
   color: #01161e;
@@ -56,11 +63,13 @@ button:active {
 
 .icon-group {
   display: flex;
-  justify-content: center;
+  gap: 0.8rem;
+  line-height: 3rem;
+  vertical-align: middle;
 }
 .icon {
-  height: 2rem;
-  width: 2rem;
+  height: 2.5rem;
+  width: 2.5rem;
   color: black;
   justify-self: center;
 }

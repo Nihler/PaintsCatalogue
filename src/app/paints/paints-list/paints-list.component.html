@@ -11,12 +11,14 @@
   </mat-form-field>
 </form>
 <div class="type-lists">
-  <div class="list" *ngFor="let type of paintTypes">
+  <div *ngFor="let type of paintTypes">
     <h2>{{ type }}</h2>
-    <ul>
-      <br />
+    <!-- CHANGE TO GRID! -->
+
+    <br />
+    <div class="list">
       <div *ngFor="let paint of filteredOptions$ | async" class="paintDiv">
-        <li *ngIf="paint.type === type && paint.name != ''">
+        <div *ngIf="paint.type === type && paint.name != ''" class="paint-flex">
           <span>
             {{ paint.name }}
           </span>
@@ -73,8 +75,8 @@
               (mouseleave)="mouseLeave($event.target)"
             ></ion-icon>
           </div>
-        </li>
+        </div>
       </div>
-    </ul>
+    </div>
   </div>
 </div>
