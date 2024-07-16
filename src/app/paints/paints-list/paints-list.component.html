@@ -10,71 +10,69 @@
     />
   </mat-form-field>
 </form>
-<div class="type-lists">
-  <div *ngFor="let type of paintTypes">
-    <h2>{{ type }}</h2>
-    <!-- CHANGE TO GRID! -->
 
-    <br />
-    <div class="list">
-      <div *ngFor="let paint of filteredOptions$ | async" class="paintDiv">
-        <div *ngIf="paint.type === type && paint.name != ''" class="paint-flex">
-          <span>
-            {{ paint.name }}
-          </span>
-          <div class="icon-group">
-            <!-- Wishlist icons -->
-            <ion-icon
-              *ngIf="
-                isLoggedIn && mode === 'list' && !isIncludedInWishlist(paint)
-              "
-              (click)="addToWishlist(paint)"
-              class="icon"
-              name="bookmark-outline"
-              (mouseenter)="addBookmarkEnter($event.target)"
-              (mouseleave)="mouseLeave($event.target)"
-            ></ion-icon>
+<div *ngFor="let type of paintTypes" class="type-lists">
+  <h2>{{ type }}</h2>
+  <!-- CHANGE TO GRID! -->
+  <br />
+  <div class="list">
+    <div *ngFor="let paint of filteredOptions$ | async" class="paintDiv">
+      <div *ngIf="paint.type === type && paint.name != ''" class="paint-flex">
+        <span>
+          {{ paint.name }}
+        </span>
+        <div class="icon-group">
+          <!-- Wishlist icons -->
+          <ion-icon
+            *ngIf="
+              isLoggedIn && mode === 'list' && !isIncludedInWishlist(paint)
+            "
+            (click)="addToWishlist(paint)"
+            class="icon"
+            name="bookmark-outline"
+            (mouseenter)="addBookmarkEnter($event.target)"
+            (mouseleave)="mouseLeave($event.target)"
+          ></ion-icon>
 
-            <ion-icon
-              *ngIf="
-                isLoggedIn &&
-                ((mode === 'list' && isIncludedInWishlist(paint)) ||
-                  mode === 'wishlist')
-              "
-              (click)="addToWishlist(paint)"
-              class="icon"
-              name="bookmarks-outline"
-              (mouseenter)="addBookmarkEnter($event.target)"
-              (mouseleave)="mouseLeave($event.target)"
-            ></ion-icon>
+          <ion-icon
+            *ngIf="
+              isLoggedIn &&
+              ((mode === 'list' && isIncludedInWishlist(paint)) ||
+                mode === 'wishlist')
+            "
+            (click)="addToWishlist(paint)"
+            class="icon"
+            name="bookmarks-outline"
+            (mouseenter)="addBookmarkEnter($event.target)"
+            (mouseleave)="mouseLeave($event.target)"
+          ></ion-icon>
 
-            <!-- Inventory icons -->
-            <ion-icon
-              *ngIf="
-                isLoggedIn &&
-                ((mode === 'list' && isIncludedInInventory(paint)) ||
-                  mode === 'inventory')
-              "
-              (click)="addToInventory(paint)"
-              class="icon"
-              name="remove-circle-outline"
-              (mouseenter)="addMouseEnter($event.target)"
-              (mouseleave)="mouseLeave($event.target)"
-            ></ion-icon>
+          <!-- Inventory icons -->
+          <ion-icon
+            *ngIf="
+              isLoggedIn &&
+              ((mode === 'list' && isIncludedInInventory(paint)) ||
+                mode === 'inventory')
+            "
+            (click)="addToInventory(paint)"
+            class="icon"
+            name="remove-circle-outline"
+            (mouseenter)="addMouseEnter($event.target)"
+            (mouseleave)="mouseLeave($event.target)"
+          ></ion-icon>
 
-            <ion-icon
-              *ngIf="
-                isLoggedIn &&
-                ((mode === 'list' && !isIncludedInInventory(paint)) ||
-                  mode === 'wishlist')
-              "
-              (click)="addToInventory(paint)"
-              class="icon"
-              name="add-circle-outline"
-              (mouseenter)="addMouseEnter($event.target)"
-              (mouseleave)="mouseLeave($event.target)"
-            ></ion-icon>
-          </div>
+          <ion-icon
+            *ngIf="
+              isLoggedIn &&
+              ((mode === 'list' && !isIncludedInInventory(paint)) ||
+                mode === 'wishlist')
+            "
+            (click)="addToInventory(paint)"
+            class="icon"
+            name="add-circle-outline"
+            (mouseenter)="addMouseEnter($event.target)"
+            (mouseleave)="mouseLeave($event.target)"
+          ></ion-icon>
         </div>
       </div>
     </div>

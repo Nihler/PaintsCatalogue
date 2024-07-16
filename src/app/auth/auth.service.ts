@@ -9,6 +9,9 @@ import { envionment } from '../../environments/environment';
 
 const BACKEND_URL = envionment.apiUrl + 'user/';
 
+// TODO
+// LOGIN AND LOGOUT SHOULD EMIT STATUS CHANGE
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private token: string;
