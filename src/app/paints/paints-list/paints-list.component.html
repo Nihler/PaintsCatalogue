@@ -1,11 +1,12 @@
 <form *ngIf="!isLoading">
+  <br />
   <mat-form-field class="filterInput">
-    <mat-label>Nazwa farby</mat-label>
+    <mat-label>Search for paint</mat-label>
     <input
       matInput
       type="text"
       name="paintName"
-      placeholder="Nazwa farby"
+      placeholder="Paint name"
       [formControl]="paintNameInput"
     />
   </mat-form-field>
@@ -17,7 +18,10 @@
   <br />
   <div class="list">
     <div *ngFor="let paint of filteredOptions$ | async" class="paintDiv">
-      <div *ngIf="paint.type === type && paint.name != ''" class="paint-flex">
+      <div
+        *ngIf="paint.type === type && paint.name != ''"
+        class="paint-content"
+      >
         <span>
           {{ paint.name }}
         </span>

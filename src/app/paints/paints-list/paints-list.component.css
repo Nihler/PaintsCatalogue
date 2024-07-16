@@ -2,25 +2,13 @@ form {
   margin: 0 auto;
 }
 
-.type-lists {
-}
-
-ul {
-  display: flex;
-  max-width: 100%;
-  flex-wrap: wrap;
-  margin: auto;
-  margin-bottom: 3.2rem;
-  align-content: flex-start;
-}
-
 .list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(33rem, 1fr));
   margin: auto;
 }
 
-.paint-flex {
+.paint-content {
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -32,7 +20,7 @@ ul {
 .paintDiv {
   background-color: rgba(174, 195, 176, 0.2);
   border-radius: 9px;
-  width: 32rem;
+  min-width: 32rem;
   height: 6rem;
   padding: 0.8rem;
   margin-right: 1.2rem;
@@ -70,20 +58,21 @@ button:active {
   height: 2.5rem;
   width: 2.5rem;
   color: black;
-  justify-self: center;
+  align-self: center;
 }
 
 .filterInput {
-  min-width: 20rem;
+  width: 50rem;
   margin: auto;
 }
 
-/* @media only screen and (max-width: 1340px) {
-  .list {
-    grid-template-columns: repeat(3, 1fr);
+@media only screen and (max-width: 1340px) {
+  .filterInput {
+    width: 80%;
   }
 }
 
+/* 
 @media only screen and (max-width: 1015px) {
   .list {
     grid-template-columns: repeat(2, 1fr);

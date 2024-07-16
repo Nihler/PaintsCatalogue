@@ -1,7 +1,6 @@
 .grid-col-12 {
   display: grid;
-  grid-template-columns: 10fr 3fr;
-  justify-content: space-between;
+  grid-template-columns: 10fr 30rem;
 }
 
 .profile-navigation {
@@ -9,4 +8,34 @@
   flex-direction: column;
   height: 1000px;
   min-width: 30rem;
+}
+
+@media only screen and (max-width: 1050px) {
+  .grid-col-12 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .profile-navigation {
+    flex-direction: row;
+    height: auto;
+    grid-row: 1/2;
+    gap: 2rem;
+    margin: 2rem auto 5rem;
+
+    width: 100%;
+    gap: 5rem;
+  }
+
+  .profile-navigation button {
+    width: 70rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-navigation button {
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
 }

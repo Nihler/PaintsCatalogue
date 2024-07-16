@@ -87,3 +87,9 @@ body {
   padding: 0 3.2rem;
   margin: 0 auto;
 }
+
+@media only screen and (max-width: 1340px) {
+  .container {
+    padding: 0 1.2rem;
+  }
+}
