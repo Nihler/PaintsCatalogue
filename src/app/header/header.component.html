@@ -17,6 +17,7 @@
       </li> -->
       <li>
         <a
+          *ngIf="isLoggedIn"
           mat-button
           [routerLink]="['user', username]"
           routerLinkActive="mat-accent"

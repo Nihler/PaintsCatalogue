@@ -1,54 +1,60 @@
 <mat-sidenav-container>
   <mat-sidenav #drawer class="drawer">
-    <button (click)="drawer.toggle()">X</button>
-    <ul>
-      <div>
-        <li>
-          <a mat-button routerLink="/" (click)="drawer.toggle()"
-            >Paint Catalogue</a
-          >
-        </li>
-        <li>
-          <a
-            mat-button
-            [routerLink]="['user', username]"
-            (click)="drawer.toggle()"
-            routerLinkActive="mat-accent"
-          >
-            Profile
-          </a>
-        </li>
-      </div>
-      <div>
-        <li *ngIf="!isLoggedIn">
-          <a
-            mat-button
-            routerLink="/auth/login"
-            routerLinkActive="mat-accent"
-            (click)="drawer.toggle()"
-            >Login</a
-          >
-        </li>
-        <li *ngIf="!isLoggedIn">
-          <a
-            mat-button
-            routerLink="/auth/signup"
-            routerLinkActive="mat-accent"
-            (click)="drawer.toggle()"
-            >Signup</a
-          >
-        </li>
-        <li *ngIf="isLoggedIn">
-          <button
-            mat-button
-            routerLinkActive="mat-accent"
-            (click)="onLogout()"
-            (click)="drawer.toggle()"
-          >
-            Logout
-          </button>
-        </li>
-      </div>
+    <div class="close-drawer">
+      <ion-icon
+        name="close-outline"
+        class="close-icon"
+        (click)="drawer.toggle()"
+      ></ion-icon>
+    </div>
+    <ul class="sidebar-menu">
+      <li>
+        <button mat-button routerLink="/" (click)="drawer.toggle()">
+          Paint Catalogue
+        </button>
+      </li>
+      <li>
+        <button
+          *ngIf="isLoggedIn"
+          mat-button
+          [routerLink]="['user', username]"
+          (click)="drawer.toggle()"
+          routerLinkActive="mat-accent"
+        >
+          Profile
+        </button>
+      </li>
+
+      <li *ngIf="!isLoggedIn">
+        <button
+          mat-button
+          routerLink="/auth/login"
+          routerLinkActive="mat-accent"
+          (click)="drawer.toggle()"
+        >
+          Login
+        </button>
+      </li>
+      <li *ngIf="!isLoggedIn">
+        <button
+          mat-button
+          routerLink="/auth/signup"
+          routerLinkActive="mat-accent"
+          (click)="drawer.toggle()"
+        >
+          Signup
+        </button>
+      </li>
+      <li *ngIf="isLoggedIn">
+        <button
+          mat-button
+          routerLinkActive="mat-accent"
+          (click)="onLogout()"
+          (click)="drawer.toggle()"
+        >
+          Logout
+        </button>
+      </li>
     </ul>
   </mat-sidenav>
   <mat-sidenav-content>

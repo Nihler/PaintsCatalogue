@@ -7,4 +7,34 @@
 
 .drawer {
   width: 100%;
+  overflow-y: hidden;
+  height: 100vh;
+}
+
+.close-drawer {
+  margin-left: 85%;
+}
+
+.close-icon {
+  height: 6rem;
+  width: 6rem;
+  color: black;
+  margin: 1.2rem;
+  padding-right: 1.2rem;
+}
+
+.sidebar-menu li {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-menu li button {
+  font-size: 3.4rem;
+  margin: 0 auto;
+  padding: 5rem;
+  width: 100%;
+}
+
+.sidebar-menu li button:last-of-type {
+  margin-top: auto;
 }
