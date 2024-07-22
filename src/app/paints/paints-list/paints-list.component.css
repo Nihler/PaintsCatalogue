@@ -70,6 +70,13 @@ button:active {
   .filterInput {
     width: 80%;
   }
+  .icon-group {
+    gap: 2.8rem;
+  }
+  .icon {
+    height: 3.2rem;
+    width: 3.2rem;
+  }
 }
 
 /* 
