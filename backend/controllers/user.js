@@ -67,3 +67,25 @@ exports.login = (req, res, next) => {
       });
     });
 };
+
+exports.changePassword = (req, res, next) => {
+  const userId = req.userData.userId;
+  bcrypt
+    .hash(req.body.password, 10)
+    .then((hash) => {
+      console.log(hash);
+      User.findOneAndUpdate({ _id: userId }, { password: hash }).then(
+        (userEl) => {
+          userEl.save();
+        }
+      );
+    })
+    .then(() =>
+      res.status(200).json({
+        message: "Password changed",
+      })
+    )
+    .catch((err) => {
+      console.log(err);
+    });
+};

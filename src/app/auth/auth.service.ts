@@ -170,4 +170,19 @@ export class AuthService {
     this.userId = null;
     this.router.navigate(['/']);
   }
+
+  changePassword(newPassword: any) {
+    const authData = {
+      password: newPassword,
+    };
+    console.log(newPassword);
+    return this.http.post(BACKEND_URL + 'changePassword', authData).subscribe(
+      () => {
+        console.log('Password changed');
+      },
+      (err) => {
+        this.authStatusListener.next(false);
+      }
+    );
+  }
 }
