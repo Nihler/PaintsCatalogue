@@ -22,6 +22,7 @@ export class PaintsListComponent implements OnInit, OnDestroy {
   userPaints: Paint[] = [];
   wishlistPaints: Paint[] = [];
   paintTypes = ['Base', 'Layer', 'Shade', 'Contrast', 'Technical', 'Air'];
+  paintType: FormControl;
 
   mode = 'list';
   isLoading = true;
@@ -50,6 +51,7 @@ export class PaintsListComponent implements OnInit, OnDestroy {
     //check if user is logged in
 
     this.paintNameInput = new FormControl(null, {});
+    this.paintType = new FormControl('');
 
     //populate table of all paints depending on mode
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
