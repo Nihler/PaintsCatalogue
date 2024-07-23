@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { AuthData } from './auth.data.model';
@@ -20,7 +20,8 @@ export class AuthService {
   private username: string;
   private isAuthenticated = false;
   private authStatusListener = new Subject<boolean>();
-  private usernameListener = new Subject<string>();
+  private usernameListener = new BehaviorSubject<any>('');
+
   constructor(private http: HttpClient, private router: Router) {}
 
   getIsAuth() {
@@ -33,6 +34,10 @@ export class AuthService {
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
+  }
+
+  getUsernameListener() {
+    return this.usernameListener.asObservable();
   }
 
   getUserId() {
@@ -65,6 +70,7 @@ export class AuthService {
     const expirationDate = localStorage.getItem('expiration');
     const userId = localStorage.getItem('userId');
     const username = localStorage.getItem('username');
+
     if (!token || !expirationDate) {
       return null;
     }
@@ -80,12 +86,8 @@ export class AuthService {
     return localStorage.getItem('username');
   }
 
-  getUsername() {
-    return this.usernameListener.asObservable();
-  }
-
   private setAuthTimer(duration: number) {
-    console.log('Setting timer: ' + duration);
+    // console.log('Setting timer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
@@ -102,8 +104,10 @@ export class AuthService {
       this.token = authInformation.token;
       this.isAuthenticated = true;
       this.userId = authInformation.userId;
+      this.username = authInformation.username;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
+      this.usernameListener.next(this.username);
     }
   }
 

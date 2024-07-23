@@ -5,7 +5,7 @@
   <div class="profile-navigation">
     <button
       mat-button
-      [routerLink]="[userId]"
+      [routerLink]="[username]"
       routerLinkActive="mat-accent"
       routerLinkActive="active"
     >
@@ -13,14 +13,14 @@
     </button>
     <button
       mat-button
-      [routerLink]="['inventory', userId]"
+      [routerLink]="['inventory', username]"
       routerLinkActive="mat-accent"
     >
       Inventory
     </button>
     <button
       mat-button
-      [routerLink]="['wishlist', userId]"
+      [routerLink]="['wishlist', username]"
       routerLinkActive="mat-accent"
     >
       Wishlist

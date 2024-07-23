@@ -39,20 +39,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this.isLoggedIn = this.authService.getIsAuth();
-    this.usernameSub = this.authService.getUsername().subscribe((val) => {
-      this.username = val;
-    });
+    this.usernameSub = this.authService
+      .getUsernameListener()
+      .subscribe((val) => {
+        console.log(val);
+        this.username = val;
+      });
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
         this.isLoggedIn = isAuthenticated;
+        console.log('auth sub');
+        console.log(isAuthenticated);
       });
     this.layoutChanges = this.breakpointObserver
       .observe(['(max-width: 630px)'])
       .subscribe((res) => {
-        console.log(res);
-        console.log(res.matches);
-        console.log(res.breakpoints);
+        // console.log(res);
+        // console.log(res.matches);
+        // console.log(res.breakpoints);
         this.smallScreen = res.matches;
       });
   }
@@ -60,6 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.authListenerSubs.unsubscribe();
     this.layoutChanges.unsubscribe();
+    this.usernameSub.unsubscribe();
   }
 
   onLogout() {
