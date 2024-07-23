@@ -1,62 +1,42 @@
 <mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form *ngIf="!isLoading" (submit)="onSignup(signupForm)" #signupForm="ngForm">
+  <form [formGroup]="signupForm">
     <h1>Sign up</h1>
     <mat-form-field>
-      <input
-        matInput
-        type="text"
-        name="username"
-        id="username"
-        placeholder="Username"
-        ngModel
-        #usernameInput="ngModel"
-        required
-        username
-      />
-
-      <mat-error *ngIf="usernameInput.invalid"
-        >Please enter the valid email</mat-error
-      >
+      <mat-label> Login </mat-label>
+      <input matInput type="text" formControlName="login" />
+      <mat-error *ngIf="signupForm.controls['login'].invalid">
+        Invalid Login
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input
-        matInput
-        type="email"
-        name="email"
-        id="email"
-        placeholder="E-mail"
-        ngModel
-        #emailInput="ngModel"
-        required
-        email
-      />
-
-      <mat-error *ngIf="emailInput.invalid"
-        >Please enter the valid email</mat-error
-      >
+      <mat-label> Email </mat-label>
+      <input matInput type="email" formControlName="email" />
+      <mat-error *ngIf="signupForm.controls['email'].invalid">
+        Invalid Email
+      </mat-error>
     </mat-form-field>
-
     <mat-form-field>
-      <input
-        matInput
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Password"
-        ngModel
-        #passwordInput="ngModel"
-        required
-        password
-      />
-
-      <mat-error *ngIf="passwordInput.invalid"
-        >Please enter the valid password</mat-error
-      >
+      <mat-label> Password </mat-label>
+      <input matInput type="password" formControlName="newPassword" />
+      <mat-error *ngIf="signupForm.controls['newPassword'].invalid">
+        Too short password
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Repeat Password </mat-label>
+      <input matInput type="password" formControlName="repeatPassword" />
+      <mat-error *ngIf="signupForm.errors?.['passwordMatchError']">
+        Password missmatch
+      </mat-error>
     </mat-form-field>
 
-    <button *ngIf="!isLoading" color="accent" mat-raised-button type="submit">
-      Sign Up
+    <button
+      [disabled]="signupForm.invalid"
+      color="accent"
+      mat-raised-button
+      type="submit"
+    >
+      Signup
     </button>
   </form>
 </mat-card>
