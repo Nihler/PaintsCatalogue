@@ -52,16 +52,16 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.authStatusSub.unsubscribe();
   }
 
-  onSignup(loginForm: NgForm) {
-    if (loginForm.invalid) {
+  onSignup() {
+    if (this.signupForm.invalid) {
       return;
     }
     this.isLoading = true;
 
     this.authService.createUser(
-      loginForm.value.email,
-      loginForm.value.password,
-      loginForm.value.username
+      this.signupForm.controls['email'].value,
+      this.signupForm.controls['newPassword'].value,
+      this.signupForm.controls['login'].value
     );
   }
 }

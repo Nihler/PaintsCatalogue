@@ -1,5 +1,5 @@
 <mat-card>
-  <form [formGroup]="signupForm">
+  <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
     <h1>Sign up</h1>
     <mat-form-field>
       <mat-label> Login </mat-label>
