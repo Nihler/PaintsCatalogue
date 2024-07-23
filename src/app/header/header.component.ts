@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private authListenerSubs: Subscription;
   isLoggedIn = false;
   username: string;
+  usernameSub: Subscription;
   usernameInput: FormControl;
   layoutChanges: Subscription;
   smallScreen = false;
@@ -38,7 +39,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this.isLoggedIn = this.authService.getIsAuth();
-    this.username = this.authService.getUserName();
+    this.usernameSub = this.authService.getUsername().subscribe((val) => {
+      this.username = val;
+    });
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {

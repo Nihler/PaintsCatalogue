@@ -20,6 +20,7 @@ export class AuthService {
   private username: string;
   private isAuthenticated = false;
   private authStatusListener = new Subject<boolean>();
+  private usernameListener = new Subject<string>();
   constructor(private http: HttpClient, private router: Router) {}
 
   getIsAuth() {
@@ -48,6 +49,7 @@ export class AuthService {
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
     localStorage.setItem('username', username);
+    this.usernameListener.next(username);
   }
 
   private clearAuthData() {
@@ -55,6 +57,7 @@ export class AuthService {
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
     localStorage.removeItem('username');
+    this.usernameListener.next(null);
   }
 
   private getAuthData() {
@@ -75,6 +78,10 @@ export class AuthService {
 
   getUserName() {
     return localStorage.getItem('username');
+  }
+
+  getUsername() {
+    return this.usernameListener.asObservable();
   }
 
   private setAuthTimer(duration: number) {
