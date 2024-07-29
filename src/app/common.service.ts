@@ -10,7 +10,6 @@ export class CommonService {
   }
 
   sidenavToggle(status: boolean) {
-    console.log(status);
     this.sidenavEvent.next(!status);
   }
 }

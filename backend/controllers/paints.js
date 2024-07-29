@@ -3,7 +3,6 @@ const Paint = require("../models/paint");
 const User = require("../models/user");
 
 exports.addPaint = (req, res, next) => {
-  console.log(req.body);
   const paint = new Paint({
     name: req.body.name,
     manufacturer: req.body.manufacturer,

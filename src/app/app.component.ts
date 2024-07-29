@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authService.autoAuthUser();
     this.commonService.sidenavToggleStatus().subscribe((res) => {
-      console.log('app component ' + res);
       this.sidenavStatus = res;
       this.sidenav.toggle();
     });

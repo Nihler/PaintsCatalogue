@@ -28,27 +28,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .getUsernameListener()
       .subscribe((val) => {
         this.route.url.subscribe((url) => {
-          console.log('url');
-          console.log(url);
           if (this.route.snapshot.firstChild.params['userId']) {
             this.username = this.route.snapshot.firstChild.params['userId'];
           } else {
             this.username = val;
           }
-          console.log(this.route.snapshot.parent.url);
           if (this.route.snapshot.firstChild.params['userId'] === val) {
             this.isAuthorized = true;
           }
         });
       });
-
-    // this.router.events.subscribe((data) => {
-    //   if (data instanceof RoutesRecognized) {
-    //     console.log(data.state.root);
-    //   }
-    // });
-
-    // this.username = 'temp';
   }
 
   ngOnDestroy(): void {

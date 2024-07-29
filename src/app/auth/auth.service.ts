@@ -87,7 +87,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    // console.log('Setting timer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
@@ -128,7 +127,6 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    console.log(email);
     const authData = {
       email: email,
       password: password,
@@ -145,7 +143,6 @@ export class AuthService {
           // const token = token;
           this.token = response.token;
           if (this.token) {
-            console.log(response);
             const expiresInDuration = response.expiresIn;
             this.setAuthTimer(expiresInDuration);
             this.isAuthenticated = true;
@@ -166,7 +163,6 @@ export class AuthService {
           }
         },
         (err) => {
-          console.log(err);
           this.authStatusListener.next(false);
         }
       );
@@ -186,7 +182,6 @@ export class AuthService {
     const authData = {
       password: newPassword,
     };
-    console.log(newPassword);
     return this.http.post(BACKEND_URL + 'changePassword', authData).subscribe(
       () => {
         console.log('Password changed');

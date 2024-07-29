@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onLogin(loginForm: NgForm) {
-    console.log(loginForm.value);
     if (loginForm.invalid) {
       return;
     }

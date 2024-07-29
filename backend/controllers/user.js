@@ -73,7 +73,6 @@ exports.changePassword = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
-      console.log(hash);
       User.findOneAndUpdate({ _id: userId }, { password: hash }).then(
         (userEl) => {
           userEl.save();
