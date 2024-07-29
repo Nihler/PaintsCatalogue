@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class ProfileComponent implements OnInit, OnDestroy {
   username: string;
   usernameSub: Subscription;
+  isAuthorized = false;
   constructor(
     private authService: AuthService,
     private route: ActivatedRoute,
@@ -26,7 +27,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.usernameSub = this.authService
       .getUsernameListener()
       .subscribe((val) => {
-        this.username = val;
+        this.route.url.subscribe((url) => {
+          console.log('url');
+          console.log(url);
+          if (this.route.snapshot.firstChild.params['userId']) {
+            this.username = this.route.snapshot.firstChild.params['userId'];
+          } else {
+            this.username = val;
+          }
+          console.log(this.route.snapshot.parent.url);
+          if (this.route.snapshot.firstChild.params['userId'] === val) {
+            this.isAuthorized = true;
+          }
+        });
       });
 
     // this.router.events.subscribe((data) => {

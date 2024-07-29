@@ -1,22 +1,27 @@
 <form (ngSubmit)="changePassword()" [formGroup]="form">
+  <h2>Change your password</h2>
   <mat-form-field>
     <mat-label> Change password </mat-label>
     <input
+      class="input"
       matInput
       type="password"
       name="newPassword"
       formControlName="newPassword"
     />
   </mat-form-field>
+  <br />
   <mat-form-field>
     <mat-label> Repeat password </mat-label>
     <input
+      class="input"
       matInput
       type="password"
       name="repeatPassword"
       formControlName="repeatPassword"
     />
   </mat-form-field>
+  <br />
   <span *ngIf="form.errors?.['passwordMatchError']">Mismatch passwords</span>
   <button mat-button [disabled]="form.invalid">Submit</button>
 </form>

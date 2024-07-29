@@ -15,6 +15,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { ProfileComponent } from './user/profile/profile.component';
 import { InventoryComponent } from './user/inventory/inventory.component';
 import { UserModule } from './user/user.module';
+import { AuthorizationGuard } from './auth/authorization.guard';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, InventoryComponent],
@@ -30,6 +31,7 @@ import { UserModule } from './user/user.module';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthorizationGuard,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

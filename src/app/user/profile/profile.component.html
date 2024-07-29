@@ -4,6 +4,7 @@
   </div>
   <div class="profile-navigation">
     <button
+      *ngIf="isAuthorized"
       mat-button
       [routerLink]="[username]"
       routerLinkActive="mat-accent"
