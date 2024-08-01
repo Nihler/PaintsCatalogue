@@ -12,15 +12,19 @@
 }
 
 .close-drawer {
-  margin-left: 85%;
+  float: letf;
+  height: 6rem;
+  margin: 1.2rem;
 }
 
 .close-icon {
   height: 6rem;
   width: 6rem;
   color: black;
-  margin: 1.2rem;
+
   padding-right: 1.2rem;
+  box-sizing: border-box;
+  float: right;
 }
 
 .sidebar-menu li {
@@ -29,7 +33,7 @@
 }
 
 .sidebar-menu li button {
-  font-size: 3.4rem;
+  font-size: 3.2rem;
   margin: 0 auto;
   padding: 5rem;
   width: 100%;

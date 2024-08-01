@@ -3,9 +3,6 @@ mat-card {
   margin: auto;
 }
 
-h1 {
-}
-
 form {
   display: flex;
   flex-direction: column;
@@ -27,4 +24,16 @@ button {
 
 mat-spinner {
   margin: auto;
+}
+
+@media only screen and (max-width: 660px) {
+  mat-card {
+    width: 100%;
+    margin: auto;
+  }
+
+  mat-form-field,
+  input {
+    width: 30rem;
+  }
 }
